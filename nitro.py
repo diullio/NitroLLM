@@ -229,6 +229,7 @@ if st.button("Gerar Relatório"):
     resposta_html = render_markdown(resposta)
     # Mostrar a resposta no Streamlit
     st.subheader("Resposta da LLM:")
+    st.text(resposta)
     st.text(resposta_html)
     st.markdown(resposta_html, unsafe_allow_html=True)
 
