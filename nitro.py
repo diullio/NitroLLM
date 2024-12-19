@@ -72,6 +72,8 @@ def chat_rdc( prompt):
 	return response.content, tokens, custo
 
 def render_markdown(text):
+    text = text.replace("markdown", "")
+    text = text.replace("```", "")
     # Converte o texto Markdown em HTML com a extensão 'tables'
     html = markdown.markdown(
         text,
@@ -229,8 +231,6 @@ if st.button("Gerar Relatório"):
     resposta_html = render_markdown(resposta)
     # Mostrar a resposta no Streamlit
     st.subheader("Resposta da LLM:")
-    st.text(resposta)
-    st.text(resposta_html)
     st.markdown(resposta_html, unsafe_allow_html=True)
 
     # Gerar o Documento
