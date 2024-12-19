@@ -97,18 +97,7 @@ def chat_rdc( prompt):
 		
         
         Você deve:
-		- Utilizar a tabela acima para encontrar o meu 'ppb produzido' com base nos dados informados de pH, niveis de nitrito, quantidade de amina, temperatura, definido no modelo abaixo como VALOR TABELA.
-        - Utilize o texto abaixo de modelo para resposta:
-
-        No quadro 1 deste Anexo, foi inserido valores de pH (Valor do PH), pKa (Valor do pka), níveis de nitrito (Niveis de Nitrito), quantidade de amina (Quantidade de amina) e temperatura do processo (Temperatura), obtendo a quantidade de (VALOR DA TABELA) ppb formada. Conforme predição teórica de Ashworth e colaboradores, a formação de (Nome da Nitrosamina) está abaixo de 10 % da especificação (VALOR CALCULADO AQUI). Desta forma, o risco para a formação de (Nome da Nitrosamina) no IFA (Nome do IFA) é baixo (ou alto se for acima de 10%).
-        
-		
-        REGRAS:
-		1. Gere acima do texto modelo o quadro 1 em markdown com os valores informados, contendo as colunas pH, pKa, Níveis de Nitrito, Quantidade de Amina, Temperatura, Dose Máxima do Medicamento, Limite da Nitrosamina.
-        2. Substitua os parenteses no texto de modelo ajustando com os valores de RESULTADOS informados.
-		3. Substitua 'VALOR CALCULADO AQUI' pelo resultado da divisão do limite da nitrosamina (ng/dia) pela dose máxima do medicamento (mg/dia) e obtendo valor em ppm.
-        4. Caso 'VALOR CALCULADO AQUI' não esteja abaixo de 10 por cento do valor de formação da minha nitrosamina com base na tabela, ajustar o percentual da especificação formado e alterar o risco para alto se acima de 10%.     
-        5. Sempre colocar unidades de medida nos dados.                  
+		- Utilizar a tabela acima para encontrar o meu 'ppb produzido' com base nos dados informados de quantidade de amina, niveis de nitrito, temperatura, pH.                  
         """)
 	# Prepara a mensagem do usuário (incluindo o contexto)
 	user_message = HumanMessage(content=f"{prompt}")
@@ -264,18 +253,10 @@ temperatura = st.selectbox(
 if st.button("Gerar Relatório"):
     # Construir o prompt
     prompt = {f"""
-        TENHO OS RESULTADOS A SEGUIR: 
-        
-        ifa = {ifa}
-        nitrosamina = {nitrosamina}
-        limite = {limite}
-        dose = {dose}
-        ph = {ph}
-        pka = {pka}
-        nitrito = {nitrito}
-        amina = {amina}
+        quantidade de amina = {amina}
+        niveis de nitrito = {nitrito}
         temperatura = {temperatura}
-              
+        pH = {ph}
         """
     }
     # Chamar a função de IA
