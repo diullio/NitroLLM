@@ -226,13 +226,14 @@ if st.button("Gerar Relatório"):
     }
     # Chamar a função de IA
     resposta, _, _ = chat_rdc(prompt)
-    resposta = render_markdown(resposta)
+    resposta_html = render_markdown(resposta)
     # Mostrar a resposta no Streamlit
     st.subheader("Resposta da LLM:")
-    st.markdown(resposta, unsafe_allow_html=True)
+    st.text(resposta_html)
+    st.markdown(resposta_html, unsafe_allow_html=True)
 
     # Gerar o Documento
-    html_relatorio = gerar_html(resposta, ifa, data_hora)
+    html_relatorio = gerar_html(resposta_html, ifa, data_hora)
     
     # Oferece o arquivo HTML para download
     st.download_button(
