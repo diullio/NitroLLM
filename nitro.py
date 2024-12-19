@@ -23,39 +23,40 @@ def chat_rdc( prompt):
         | Cenário | [Amina]  | Nível de Nitrito | Temp. (°C) | ppb produzido no pH da reação |
         |---------|----------|------------------|------------|---------------------------------------|
      pH |         |          |                  |            | 3,15         | 5          | 7          | 9          |
-        | 1a      | 1 mM[^b] | 0,01 mg/L[^c]    | 25         | 3,6.10⁻³     | 9,9.10⁻⁵   | 1.10⁻⁶     | 1.10-8     |
-        | 1a      | 1 mM[^b] | 0,01 mg/L[^c]    | 35         | 3,6.10⁻²     | 9,9.10⁻⁴   | 1.10⁻⁵     | 1.10-7     |
-        | 1a      | 1 mM[^b] | 0,01 mg/L[^c]    | 45         | 3,6.10⁻¹     | 9,9.10⁻³   | 1.10⁻⁴     | 1.10-6     |
-        | 1a      | 1 mM[^b] | 0,01 mg/L[^c]    | 55         | 3,6          | 9,9.10⁻²   | 1.10⁻³     | 1.10-5     |
-        | 1b      | 1 mM[^b] | 3 mg/L[^d]       | 25         | 1,5          | 5,3.10-2   | 5,3.10-4   | 5,3.10-6   |
-        | 1b      | 1 mM[^b] | 3 mg/L[^d]       | 35         | 14,7         | 5,3.10-1   | 5,3.10-3   | 5,3.10⁻⁵   |
-        | 1b      | 1 mM[^b] | 3 mg/L[^d]       | 45         | 147          | 5,3        | 5,3.10⁻²   | 5,3.10⁻⁴   |
-        | 1b      | 1 mM[^b] | 3 mg/L[^d]       | 55         | 1440         | 53         | 5,3.10⁻¹   | 5,3.10⁻³   |
-        | 2a      | 1 M      | 0,01 mg/L[^c]    | 25         | 3,5          | 9,9.10⁻2   | 1,10-3     | 1,10-5     |
-        | 2a      | 1 M      | 0,01 mg/L[^c]    | 35         | 32           | 9,9.10-1   | 1,10-2     | 1,10-4     |
-        | 2a      | 1 M      | 0,01 mg/L[^c]    | 45         | 145          | 9,6        | 1,10⁻¹     | 1,10-3     |
-        | 2a      | 1 M      | 0,01 mg/L[^c]    | 55         | 163          | 74         | 1          | 1,10⁻²     |
-                                
-        | 2b      | 1 M      | 3 mg/L[^d]       | 25         | 1450         | 53         | 5,3.10⁻¹   | 5,3.10⁻³   |
-        | 2b      | 1 M      | 3 mg/L[^d]       | 35         | 12300        | 521        | 5,3        | 5,3.10⁻²   |
-        | 2b      | 1 M      | 3 mg/L[^d]       | 45         | 44200        | 4870       | 53         | 5,3.10-1    |
-        | 2b      | 1 M      | 3 mg/L[^d]       | 55         | 48200        | 28900      | 530        | 5,3        |
-        | 3       | 1 mM[^b] | 1 M              | 25         | 740000       | 740000     | 54000      | 560        |
-        | 3       | 1 mM[^b] | 1 M              | 25* (1 h)  | 740000       | 210000     | 2500       | 25                              
+        | 1a      | 1 mM     | 0,01 mg/L        | 25         | 3,6.10⁻³     | 9,9.10⁻⁵   | 1.10⁻⁶     | 1.10-8     |
+        | 1a      | 1 mM     | 0,01 mg/L        | 35         | 3,6.10⁻²     | 9,9.10⁻⁴   | 1.10⁻⁵     | 1.10-7     |
+        | 1a      | 1 mM     | 0,01 mg/L        | 45         | 3,6.10⁻¹     | 9,9.10⁻³   | 1.10⁻⁴     | 1.10-6     |
+        | 1a      | 1 mM     | 0,01 mg/L        | 55         | 3,6          | 9,9.10⁻²   | 1.10⁻³     | 1.10-5     |
+        | 1b      | 1 mM     | 3 mg/L           | 25         | 1,5          | 5,3.10-2   | 5,3.10-4   | 5,3.10-6   |
+        | 1b      | 1 mM     | 3 mg/L           | 35         | 14,7         | 5,3.10-1   | 5,3.10-3   | 5,3.10⁻⁵   |
+        | 1b      | 1 mM     | 3 mg/L           | 45         | 147          | 5,3        | 5,3.10⁻²   | 5,3.10⁻⁴   |
+        | 1b      | 1 mM     | 3 mg/L           | 55         | 1440         | 53         | 5,3.10⁻¹   | 5,3.10⁻³   |
+        | 2a      | 1 M      | 0,01 mg/L        | 25         | 3,5          | 9,9.10⁻2   | 1,10-3     | 1,10-5     |
+        | 2a      | 1 M      | 0,01 mg/L        | 35         | 32           | 9,9.10-1   | 1,10-2     | 1,10-4     |
+        | 2a      | 1 M      | 0,01 mg/L        | 45         | 145          | 9,6        | 1,10⁻¹     | 1,10-3     |
+        | 2a      | 1 M      | 0,01 mg/L        | 55         | 163          | 74         | 1          | 1,10⁻²     |
+        | 2b      | 1 M      | 3 mg/L           | 25         | 1450         | 53         | 5,3.10⁻¹   | 5,3.10⁻³   |
+        | 2b      | 1 M      | 3 mg/L           | 35         | 12300        | 521        | 5,3        | 5,3.10⁻²   |
+        | 2b      | 1 M      | 3 mg/L           | 45         | 44200        | 4870       | 53         | 5,3.10-1    |
+        | 2b      | 1 M      | 3 mg/L           | 55         | 48200        | 28900      | 530        | 5,3        |
+        | 3       | 1 mM     | 1 M              | 25         | 740000       | 740000     | 54000      | 560        |
+        | 3       | 1 mM     | 1 M              | 25* (1 h)  | 740000       | 210000     | 2500       | 25       |                              
 		
         
         Você deve:
-		- Utilizar a tabela acima para calcular a minha formação de nitrosamina baseado nos dados informados de pH, niveis de nitrito, quantidade de amina, temperatura, encontrando a quantidade de ppb produzido no pH da reação.
+		- Utilizar a tabela acima para encontrar o meu 'ppb produzido no pH da reação' com base nos dados informados de pH, niveis de nitrito, quantidade de amina, temperatura.
         - Utilize o texto abaixo de modelo para resposta:
 
-        No quadro 1 deste Anexo, foi inserido valores de pH (Valor do PH), pKa (Valor do pka), níveis de nitrito (Niveis de Nitrito), quantidade de amina (Quantidade de amina) e temperatura do processo (Temperatura), obtendo a quantidade de XX (Percentual e Nome da Nitrosamina) formada, em ppb. Conforme predição teórica de Ashworth e colaboradores, a formação de (Nome da Nitrosamina) está abaixo de 10 % da especificação (VALOR CALCULADO AQUI). Desta forma, o risco para a formação de (Nome da Nitrosamina) no IFA (Nome do IFA) é negligenciável (ou alto se for acima de 10%).
+        No quadro 1 deste Anexo, foi inserido valores de pH (Valor do PH), pKa (Valor do pka), níveis de nitrito (Niveis de Nitrito), quantidade de amina (Quantidade de amina) e temperatura do processo (Temperatura), obtendo a quantidade de ('ppb produzido no pH da reação conforme quadro') formada, em ppb. Conforme predição teórica de Ashworth e colaboradores, a formação de (Nome da Nitrosamina) está abaixo de 10 % da especificação (VALOR CALCULADO AQUI). Desta forma, o risco para a formação de (Nome da Nitrosamina) no IFA (Nome do IFA) é baixo (ou alto se for acima de 10%).
         
 		
         Sugestões:
 		1. Gere acima do texto modelo o quadro 1 em markdown com os valores informados.
         2. Substitua os parenteses no modelo ajustando com os valores informados e remova os parenteses deixando melhor a visualização.
 		3. Substitua 'VALOR CALCULADO AQUI' pelo resultado da divisão do limite da nitrosamina (ng/dia) pela dose máxima do medicamento (mg/dia) e obtendo valor em ppm.
-        4. Caso 'VALOR CALCULADO AQUI' não esteja abaixo de 10 por cento do valor de formação da minha nitrosamina com base na tabela, ajustar o percentual da especificação formado e alterar o risco para alto se acima de 10%.                       
+        4. Substitua VALOR DA TABELA pelo valor encontrado no tabela'ppb produzido no pH da reação'
+        4. Caso 'VALOR CALCULADO AQUI' não esteja abaixo de 10 por cento do valor de formação da minha nitrosamina com base na tabela, ajustar o percentual da especificação formado e alterar o risco para alto se acima de 10%.     
+        5. Sempre colocar unidades de medida nos dados.                  
         """)
 	# Prepara a mensagem do usuário (incluindo o contexto)
 	user_message = HumanMessage(content=f"{prompt}")
@@ -185,8 +186,8 @@ st.header("Insira os valores para gerar o relatório")
 # Inputs do usuário
 ifa = st.text_input("IFA")
 nitrosamina = st.text_input("Nitrosamina")
-limite = st.text_input("Limite de Ingestão Diário")
-dose = st.text_input("Dose Máxima Diária")
+limite = st.text_input("Limite de Ingestão Diário ng/dia")
+dose = st.text_input("Dose Máxima Diária mg/dia")
 ph = st.selectbox(
     "Selecione o valor de pH",
     options=[3.15, 5, 7, 9]
