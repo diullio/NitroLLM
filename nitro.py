@@ -47,12 +47,12 @@ def chat_rdc( prompt):
 		- Utilizar a tabela acima para encontrar o meu 'ppb produzido no pH da reação' com base nos dados informados de pH, niveis de nitrito, quantidade de amina, temperatura.
         - Utilize o texto abaixo de modelo para resposta:
 
-        No quadro 1 deste Anexo, foi inserido valores de pH (Valor do PH), pKa (Valor do pka), níveis de nitrito (Niveis de Nitrito), quantidade de amina (Quantidade de amina) e temperatura do processo (Temperatura), obtendo a quantidade de ('ppb produzido no pH da reação conforme quadro') formada, em ppb. Conforme predição teórica de Ashworth e colaboradores, a formação de (Nome da Nitrosamina) está abaixo de 10 % da especificação (VALOR CALCULADO AQUI). Desta forma, o risco para a formação de (Nome da Nitrosamina) no IFA (Nome do IFA) é baixo (ou alto se for acima de 10%).
+        No quadro 1 deste Anexo, foi inserido valores de pH (Valor do PH), pKa (Valor do pka), níveis de nitrito (Niveis de Nitrito), quantidade de amina (Quantidade de amina) e temperatura do processo (Temperatura), obtendo a quantidade de (VALOR DA TABELA) formada. Conforme predição teórica de Ashworth e colaboradores, a formação de (Nome da Nitrosamina) está abaixo de 10 % da especificação (VALOR CALCULADO AQUI). Desta forma, o risco para a formação de (Nome da Nitrosamina) no IFA (Nome do IFA) é baixo (ou alto se for acima de 10%).
         
 		
         Sugestões:
 		1. Gere acima do texto modelo o quadro 1 em markdown com os valores informados.
-        2. Substitua os parenteses no modelo ajustando com os valores informados e remova os parenteses deixando melhor a visualização.
+        2. Substitua os parenteses no texto de modelo ajustando com os valores de RESULTADOS informados.
 		3. Substitua 'VALOR CALCULADO AQUI' pelo resultado da divisão do limite da nitrosamina (ng/dia) pela dose máxima do medicamento (mg/dia) e obtendo valor em ppm.
         4. Substitua VALOR DA TABELA pelo valor encontrado no tabela'ppb produzido no pH da reação'
         4. Caso 'VALOR CALCULADO AQUI' não esteja abaixo de 10 por cento do valor de formação da minha nitrosamina com base na tabela, ajustar o percentual da especificação formado e alterar o risco para alto se acima de 10%.     
