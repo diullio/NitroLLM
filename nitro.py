@@ -93,11 +93,13 @@ def chat_rdc( prompt):
         | 1 mM     | 1 M              | 25* (1 h)  | 3.15 | 740000                       |
         | 1 mM     | 1 M              | 25* (1 h)  | 5    | 210000                       |
         | 1 mM     | 1 M              | 25* (1 h)  | 7    | 2500                         |
-        | 1 mM     | 1 M              | 25* (1 h)  | 9    | 25                                 
+        | 1 mM     | 1 M              | 25* (1 h)  | 9    | 25                           |      
 		
         
         Você deve:
-		- Utilizar a tabela acima para encontrar o meu 'ppb produzido' com base nos dados informados de quantidade de amina, niveis de nitrito, temperatura, pH.                  
+		- Utilizar a tabela acima para encontrar o meu 'ppb produzido' com base nos dados informados de quantidade de amina, niveis de nitrito, temperatura, pH.   
+        REGRAS:
+        - Me traga como resposta apenas o valor.             
         """)
 	# Prepara a mensagem do usuário (incluindo o contexto)
 	user_message = HumanMessage(content=f"{prompt}")
