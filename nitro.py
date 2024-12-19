@@ -50,7 +50,7 @@ def chat_rdc( prompt):
         No quadro 1 deste Anexo, foi inserido valores de pH (Valor do PH), pKa (Valor do pka), níveis de nitrito (Niveis de Nitrito), quantidade de amina (Quantidade de amina) e temperatura do processo (Temperatura), obtendo a quantidade de (VALOR DA TABELA) formada. Conforme predição teórica de Ashworth e colaboradores, a formação de (Nome da Nitrosamina) está abaixo de 10 % da especificação (VALOR CALCULADO AQUI). Desta forma, o risco para a formação de (Nome da Nitrosamina) no IFA (Nome do IFA) é baixo (ou alto se for acima de 10%).
         
 		
-        Sugestões:
+        REGRAS:
 		1. Gere acima do texto modelo o quadro 1 em markdown com os valores informados.
         2. Substitua os parenteses no texto de modelo ajustando com os valores de RESULTADOS informados.
 		3. Substitua 'VALOR CALCULADO AQUI' pelo resultado da divisão do limite da nitrosamina (ng/dia) pela dose máxima do medicamento (mg/dia) e obtendo valor em ppm.
