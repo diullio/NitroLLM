@@ -20,84 +20,84 @@ def chat_rdc( prompt):
 		
         CONTEXTO:
 
-        | Cenário | [Amina]  | Nível de Nitrito | Temp. (°C) | pH  | ppb produzido no pH da reação |
-        |---------|----------|------------------|------------|-----|------------------------------|
-        | 1a      | 1 mM     | 0.01 mg/L        | 25         | 3.15 | 3,6.10⁻³                     |
-        | 1a      | 1 mM     | 0.01 mg/L        | 25         | 5    | 9,9.10⁻⁵                    |
-        | 1a      | 1 mM     | 0.01 mg/L        | 25         | 7    | 1.10⁻⁶                      |
-        | 1a      | 1 mM     | 0.01 mg/L        | 25         | 9    | 1.10⁻⁸                      |
-        | 1a      | 1 mM     | 0.01 mg/L        | 35         | 3.15 | 3,6.10⁻²                     |
-        | 1a      | 1 mM     | 0.01 mg/L        | 35         | 5    | 9,9.10⁻⁴                    |
-        | 1a      | 1 mM     | 0.01 mg/L        | 35         | 7    | 1.10⁻⁵                      |
-        | 1a      | 1 mM     | 0.01 mg/L        | 35         | 9    | 1.10⁻⁷                      |
-        | 1a      | 1 mM     | 0.01 mg/L        | 45         | 3.15 | 3,6.10⁻¹                     |
-        | 1a      | 1 mM     | 0.01 mg/L        | 45         | 5    | 9,9.10⁻³                    |
-        | 1a      | 1 mM     | 0.01 mg/L        | 45         | 7    | 1.10⁻⁴                      |
-        | 1a      | 1 mM     | 0.01 mg/L        | 45         | 9    | 1.10⁻⁶                      |
-        | 1a      | 1 mM     | 0.01 mg/L        | 55         | 3.15 | 3,6                          |
-        | 1a      | 1 mM     | 0.01 mg/L        | 55         | 5    | 9,9.10⁻²                    |
-        | 1a      | 1 mM     | 0.01 mg/L        | 55         | 7    | 1.10⁻³                      |
-        | 1a      | 1 mM     | 0.01 mg/L        | 55         | 9    | 1.10⁻⁵                      |
-        | 1b      | 1 mM     | 3 mg/L           | 25         | 3.15 | 1,5                          |
-        | 1b      | 1 mM     | 3 mg/L           | 25         | 5    | 5,3.10⁻²                    |
-        | 1b      | 1 mM     | 3 mg/L           | 25         | 7    | 5,3.10⁻⁴                    |
-        | 1b      | 1 mM     | 3 mg/L           | 25         | 9    | 5,3.10⁻⁶                    |
-        | 1b      | 1 mM     | 3 mg/L           | 35         | 3.15 | 14,7                         |
-        | 1b      | 1 mM     | 3 mg/L           | 35         | 5    | 5,3.10⁻¹                    |
-        | 1b      | 1 mM     | 3 mg/L           | 35         | 7    | 5,3.10⁻³                    |
-        | 1b      | 1 mM     | 3 mg/L           | 35         | 9    | 5,3.10⁻⁵                    |
-        | 1b      | 1 mM     | 3 mg/L           | 45         | 3.15 | 147                          |
-        | 1b      | 1 mM     | 3 mg/L           | 45         | 5    | 5,3                          |
-        | 1b      | 1 mM     | 3 mg/L           | 45         | 7    | 5,3.10⁻²                    |
-        | 1b      | 1 mM     | 3 mg/L           | 45         | 9    | 5,3.10⁻⁴                    |
-        | 1b      | 1 mM     | 3 mg/L           | 55         | 3.15 | 1440                         |
-        | 1b      | 1 mM     | 3 mg/L           | 55         | 5    | 53                           |
-        | 1b      | 1 mM     | 3 mg/L           | 55         | 7    | 5,3.10⁻¹                    |
-        | 1b      | 1 mM     | 3 mg/L           | 55         | 9    | 5,3.10⁻³                    |
-        | 2a      | 1 M      | 0.01 mg/L        | 25         | 3.15 | 3,5                          |
-        | 2a      | 1 M      | 0.01 mg/L        | 25         | 5    | 9,9.10⁻²                    |
-        | 2a      | 1 M      | 0.01 mg/L        | 25         | 7    | 1,10⁻³                      |
-        | 2a      | 1 M      | 0.01 mg/L        | 25         | 9    | 1,10⁻⁵                      |
-        | 2a      | 1 M      | 0.01 mg/L        | 35         | 3.15 | 32                           |
-        | 2a      | 1 M      | 0.01 mg/L        | 35         | 5    | 9,9.10⁻¹                    |
-        | 2a      | 1 M      | 0.01 mg/L        | 35         | 7    | 1,10⁻²                      |
-        | 2a      | 1 M      | 0.01 mg/L        | 35         | 9    | 1,10⁻⁴                      |
-        | 2a      | 1 M      | 0.01 mg/L        | 45         | 3.15 | 145                          |
-        | 2a      | 1 M      | 0.01 mg/L        | 45         | 5    | 9,6                          |
-        | 2a      | 1 M      | 0.01 mg/L        | 45         | 7    | 1,10⁻¹                      |
-        | 2a      | 1 M      | 0.01 mg/L        | 45         | 9    | 1,10⁻³                      |
-        | 2a      | 1 M      | 0.01 mg/L        | 55         | 3.15 | 163                          |
-        | 2a      | 1 M      | 0.01 mg/L        | 55         | 5    | 74                           |
-        | 2a      | 1 M      | 0.01 mg/L        | 55         | 7    | 1                            |
-        | 2a      | 1 M      | 0.01 mg/L        | 55         | 9    | 1,10⁻²                      |
-        | 2b      | 1 M      | 3 mg/L           | 25         | 3.15 | 1450                         |
-        | 2b      | 1 M      | 3 mg/L           | 25         | 5    | 53                           |
-        | 2b      | 1 M      | 3 mg/L           | 25         | 7    | 5,3.10⁻¹                    |
-        | 2b      | 1 M      | 3 mg/L           | 25         | 9    | 5,3.10⁻³                    |
-        | 2b      | 1 M      | 3 mg/L           | 35         | 3.15 | 12300                        |
-        | 2b      | 1 M      | 3 mg/L           | 35         | 5    | 521                          |
-        | 2b      | 1 M      | 3 mg/L           | 35         | 7    | 5,3                          |
-        | 2b      | 1 M      | 3 mg/L           | 35         | 9    | 5,3.10⁻²                    |
-        | 2b      | 1 M      | 3 mg/L           | 45         | 3.15 | 44200                        |
-        | 2b      | 1 M      | 3 mg/L           | 45         | 5    | 4870                         |
-        | 2b      | 1 M      | 3 mg/L           | 45         | 7    | 53                           |
-        | 2b      | 1 M      | 3 mg/L           | 45         | 9    | 5,3.10⁻¹                    |
-        | 2b      | 1 M      | 3 mg/L           | 55         | 3.15 | 48200                        |
-        | 2b      | 1 M      | 3 mg/L           | 55         | 5    | 28900                        |
-        | 2b      | 1 M      | 3 mg/L           | 55         | 7    | 530                          |
-        | 2b      | 1 M      | 3 mg/L           | 55         | 9    | 5,3                          |
-        | 3       | 1 mM     | 1 M              | 25         | 3.15 | 740000                       |
-        | 3       | 1 mM     | 1 M              | 25         | 5    | 740000                       |
-        | 3       | 1 mM     | 1 M              | 25         | 7    | 54000                        |
-        | 3       | 1 mM     | 1 M              | 25         | 9    | 560                          |
-        | 3       | 1 mM     | 1 M              | 25* (1 h)  | 3.15 | 740000                       |
-        | 3       | 1 mM     | 1 M              | 25* (1 h)  | 5    | 210000                       |
-        | 3       | 1 mM     | 1 M              | 25* (1 h)  | 7    | 2500                         |
-        | 3       | 1 mM     | 1 M              | 25* (1 h)  | 9    | 25                                 
+        | Quantidade de Amina  | Nível de Nitrito | Temperatura (°C) | pH  | ppb produzido |
+        |----------|------------------|------------|-----|------------------------------|
+        | 1 mM     | 0.01 mg/L        | 25         | 3.15 | 3,6.10⁻³                     |
+        | 1 mM     | 0.01 mg/L        | 25         | 5    | 9,9.10⁻⁵                    |
+        | 1 mM     | 0.01 mg/L        | 25         | 7    | 1.10⁻⁶                      |
+        | 1 mM     | 0.01 mg/L        | 25         | 9    | 1.10⁻⁸                      |
+        | 1 mM     | 0.01 mg/L        | 35         | 3.15 | 3,6.10⁻²                     |
+        | 1 mM     | 0.01 mg/L        | 35         | 5    | 9,9.10⁻⁴                    |
+        | 1 mM     | 0.01 mg/L        | 35         | 7    | 1.10⁻⁵                      |
+        | 1 mM     | 0.01 mg/L        | 35         | 9    | 1.10⁻⁷                      |
+        | 1 mM     | 0.01 mg/L        | 45         | 3.15 | 3,6.10⁻¹                     |
+        | 1 mM     | 0.01 mg/L        | 45         | 5    | 9,9.10⁻³                    |
+        | 1 mM     | 0.01 mg/L        | 45         | 7    | 1.10⁻⁴                      |
+        | 1 mM     | 0.01 mg/L        | 45         | 9    | 1.10⁻⁶                      |
+        | 1 mM     | 0.01 mg/L        | 55         | 3.15 | 3,6                          |
+        | 1 mM     | 0.01 mg/L        | 55         | 5    | 9,9.10⁻²                    |
+        | 1 mM     | 0.01 mg/L        | 55         | 7    | 1.10⁻³                      |
+        | 1 mM     | 0.01 mg/L        | 55         | 9    | 1.10⁻⁵                      |
+        | 1 mM     | 3 mg/L           | 25         | 3.15 | 1,5                          |
+        | 1 mM     | 3 mg/L           | 25         | 5    | 5,3.10⁻²                    |
+        | 1 mM     | 3 mg/L           | 25         | 7    | 5,3.10⁻⁴                    |
+        | 1 mM     | 3 mg/L           | 25         | 9    | 5,3.10⁻⁶                    |
+        | 1 mM     | 3 mg/L           | 35         | 3.15 | 14,7                         |
+        | 1 mM     | 3 mg/L           | 35         | 5    | 5,3.10⁻¹                    |
+        | 1 mM     | 3 mg/L           | 35         | 7    | 5,3.10⁻³                    |
+        | 1 mM     | 3 mg/L           | 35         | 9    | 5,3.10⁻⁵                    |
+        | 1 mM     | 3 mg/L           | 45         | 3.15 | 147                          |
+        | 1 mM     | 3 mg/L           | 45         | 5    | 5,3                          |
+        | 1 mM     | 3 mg/L           | 45         | 7    | 5,3.10⁻²                    |
+        | 1 mM     | 3 mg/L           | 45         | 9    | 5,3.10⁻⁴                    |
+        | 1 mM     | 3 mg/L           | 55         | 3.15 | 1440                         |
+        | 1 mM     | 3 mg/L           | 55         | 5    | 53                           |
+        | 1 mM     | 3 mg/L           | 55         | 7    | 5,3.10⁻¹                    |
+        | 1 mM     | 3 mg/L           | 55         | 9    | 5,3.10⁻³                    |
+        | 1 M      | 0.01 mg/L        | 25         | 3.15 | 3,5                          |
+        | 1 M      | 0.01 mg/L        | 25         | 5    | 9,9.10⁻²                    |
+        | 1 M      | 0.01 mg/L        | 25         | 7    | 1,10⁻³                      |
+        | 1 M      | 0.01 mg/L        | 25         | 9    | 1,10⁻⁵                      |
+        | 1 M      | 0.01 mg/L        | 35         | 3.15 | 32                           |
+        | 1 M      | 0.01 mg/L        | 35         | 5    | 9,9.10⁻¹                    |
+        | 1 M      | 0.01 mg/L        | 35         | 7    | 1,10⁻²                      |
+        | 1 M      | 0.01 mg/L        | 35         | 9    | 1,10⁻⁴                      |
+        | 1 M      | 0.01 mg/L        | 45         | 3.15 | 145                          |
+        | 1 M      | 0.01 mg/L        | 45         | 5    | 9,6                          |
+        | 1 M      | 0.01 mg/L        | 45         | 7    | 1,10⁻¹                      |
+        | 1 M      | 0.01 mg/L        | 45         | 9    | 1,10⁻³                      |
+        | 1 M      | 0.01 mg/L        | 55         | 3.15 | 163                          |
+        | 1 M      | 0.01 mg/L        | 55         | 5    | 74                           |
+        | 1 M      | 0.01 mg/L        | 55         | 7    | 1                            |
+        | 1 M      | 0.01 mg/L        | 55         | 9    | 1,10⁻²                      |
+        | 1 M      | 3 mg/L           | 25         | 3.15 | 1450                         |
+        | 1 M      | 3 mg/L           | 25         | 5    | 53                           |
+        | 1 M      | 3 mg/L           | 25         | 7    | 5,3.10⁻¹                    |
+        | 1 M      | 3 mg/L           | 25         | 9    | 5,3.10⁻³                    |
+        | 1 M      | 3 mg/L           | 35         | 3.15 | 12300                        |
+        | 1 M      | 3 mg/L           | 35         | 5    | 521                          |
+        | 1 M      | 3 mg/L           | 35         | 7    | 5,3                          |
+        | 1 M      | 3 mg/L           | 35         | 9    | 5,3.10⁻²                    |
+        | 1 M      | 3 mg/L           | 45         | 3.15 | 44200                        |
+        | 1 M      | 3 mg/L           | 45         | 5    | 4870                         |
+        | 1 M      | 3 mg/L           | 45         | 7    | 53                           |
+        | 1 M      | 3 mg/L           | 45         | 9    | 5,3.10⁻¹                    |
+        | 1 M      | 3 mg/L           | 55         | 3.15 | 48200                        |
+        | 1 M      | 3 mg/L           | 55         | 5    | 28900                        |
+        | 1 M      | 3 mg/L           | 55         | 7    | 530                          |
+        | 1 M      | 3 mg/L           | 55         | 9    | 5,3                          |
+        | 1 mM     | 1 M              | 25         | 3.15 | 740000                       |
+        | 1 mM     | 1 M              | 25         | 5    | 740000                       |
+        | 1 mM     | 1 M              | 25         | 7    | 54000                        |
+        | 1 mM     | 1 M              | 25         | 9    | 560                          |
+        | 1 mM     | 1 M              | 25* (1 h)  | 3.15 | 740000                       |
+        | 1 mM     | 1 M              | 25* (1 h)  | 5    | 210000                       |
+        | 1 mM     | 1 M              | 25* (1 h)  | 7    | 2500                         |
+        | 1 mM     | 1 M              | 25* (1 h)  | 9    | 25                                 
 		
         
         Você deve:
-		- Utilizar a tabela acima para encontrar o meu 'ppb produzido no pH da reação' com base nos dados informados de pH, niveis de nitrito, quantidade de amina, temperatura.
+		- Utilizar a tabela acima para encontrar o meu 'ppb produzido' com base nos dados informados de pH, niveis de nitrito, quantidade de amina, temperatura, definido no modelo abaixo como VALOR TABELA.
         - Utilize o texto abaixo de modelo para resposta:
 
         No quadro 1 deste Anexo, foi inserido valores de pH (Valor do PH), pKa (Valor do pka), níveis de nitrito (Niveis de Nitrito), quantidade de amina (Quantidade de amina) e temperatura do processo (Temperatura), obtendo a quantidade de (VALOR DA TABELA) formada. Conforme predição teórica de Ashworth e colaboradores, a formação de (Nome da Nitrosamina) está abaixo de 10 % da especificação (VALOR CALCULADO AQUI). Desta forma, o risco para a formação de (Nome da Nitrosamina) no IFA (Nome do IFA) é baixo (ou alto se for acima de 10%).
@@ -107,7 +107,6 @@ def chat_rdc( prompt):
 		1. Gere acima do texto modelo o quadro 1 em markdown com os valores informados, contendo as colunas pH, pKa, Níveis de Nitrito, Quantidade de Amina, Temperatura, Dose Máxima do Medicamento, Limite da Nitrosamina.
         2. Substitua os parenteses no texto de modelo ajustando com os valores de RESULTADOS informados.
 		3. Substitua 'VALOR CALCULADO AQUI' pelo resultado da divisão do limite da nitrosamina (ng/dia) pela dose máxima do medicamento (mg/dia) e obtendo valor em ppm.
-        4. Substitua VALOR DA TABELA pelo valor encontrado no tabela'ppb produzido no pH da reação'
         4. Caso 'VALOR CALCULADO AQUI' não esteja abaixo de 10 por cento do valor de formação da minha nitrosamina com base na tabela, ajustar o percentual da especificação formado e alterar o risco para alto se acima de 10%.     
         5. Sempre colocar unidades de medida nos dados.                  
         """)
