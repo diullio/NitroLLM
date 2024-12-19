@@ -51,7 +51,7 @@ def chat_rdc( prompt):
         
 		
         REGRAS:
-		1. Gere acima do texto modelo o quadro 1 em markdown com os valores informados.
+		1. Gere acima do texto modelo o quadro 1 em markdown com os valores informados, contendo as colunas pH, pKa, Níveis de Nitrito, Quantidade de Amina, Temperatura, Dose Máxima do Medicamento, Limite da Nitrosamina.
         2. Substitua os parenteses no texto de modelo ajustando com os valores de RESULTADOS informados.
 		3. Substitua 'VALOR CALCULADO AQUI' pelo resultado da divisão do limite da nitrosamina (ng/dia) pela dose máxima do medicamento (mg/dia) e obtendo valor em ppm.
         4. Substitua VALOR DA TABELA pelo valor encontrado no tabela'ppb produzido no pH da reação'
