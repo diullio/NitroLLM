@@ -13,7 +13,7 @@ os.environ["OPENAI_API_KEY"] = openai_api_key
 data_hora = datetime.now().strftime("%d/%m/%Y %H:%M")
 
 def chat_rdc( prompt):
-	llm = ChatOpenAI(temperature=0.5, model='gpt-4o-mini-2024-07-18')
+	llm = ChatOpenAI(temperature=0.1, model='gpt-4o-mini-2024-07-18')
 	# Cria um template de prompt, no caso um sistema para indicar o tipo de resposta
 	system_message = SystemMessage(content="""
 		Você é um gerador de documentos para análise de nitrosaminas em medicamentos altamente eficiente.
@@ -99,7 +99,8 @@ def chat_rdc( prompt):
         Você deve:
 		- Utilizar a tabela acima para encontrar o meu 'ppb produzido' com base nos dados informados de quantidade de amina, niveis de nitrito, temperatura, pH.   
         REGRAS:
-        - Me traga como resposta apenas o valor.             
+        - Me traga como resposta apenas o valor.       
+        - Utilize exclusivamente o contexto informado.
         """)
 	# Prepara a mensagem do usuário (incluindo o contexto)
 	user_message = HumanMessage(content=f"{prompt}")
