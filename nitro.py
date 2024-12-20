@@ -2,7 +2,6 @@ import streamlit as st
 from datetime import datetime
 import pandas as pd
 
-data_hora = datetime.now().strftime("%d/%m/%Y %H:%M")
 
 def localizar_ppb(amina, nitrito, temperatura, pH):
     # Lê o arquivo CSV
@@ -24,7 +23,7 @@ def localizar_ppb(amina, nitrito, temperatura, pH):
     return resultado["ppb"].values[0]
     
 # Função para gerar o Arquivo
-def gerar_html(conteudo, produto, data, quadro_1, texto_modelo):   
+def gerar_html(produto, quadro_1, texto_modelo):   
     html = f"""
     <!DOCTYPE html>
     <html lang="en">
@@ -50,24 +49,19 @@ def gerar_html(conteudo, produto, data, quadro_1, texto_modelo):
                 overflow: hidden;
             }}
             .header {{
-                background-color: #0047AB;
-                color: white;
-                padding: 20px;
                 text-align: center;
                 font-size: 24px;
                 font-weight: bold;
+                margin: 20px 0;
             }}
             .content {{
                 padding: 20px;
                 line-height: 1.8;
                 font-size: 16px;
             }}
-            .footer {{
-                background-color: #f1f1f1;
-                text-align: center;
-                padding: 10px 20px;
-                font-size: 14px;
-                color: #666;
+            .content p {{
+                text-align: justify;
+                text-indent: 1.5cm;
             }}
             table {{
                 width: 100%;
@@ -80,8 +74,9 @@ def gerar_html(conteudo, produto, data, quadro_1, texto_modelo):
                 text-align: center;
             }}
             th {{
-                background-color: #0047AB;
-                color: white;
+                background-color: #d3d3d3; /* Cinza claro */
+                color: #333;
+                font-weight: bold;
             }}
             tr:nth-child(even) {{
                 background-color: #f9f9f9;
@@ -93,14 +88,11 @@ def gerar_html(conteudo, produto, data, quadro_1, texto_modelo):
     </head>
     <body>
         <div class="container">
-            <div class="header">Relatório - Predição de Nitrosaminas - {produto}</div>
+            <div class="header">Relatório de Predição de Nitrosaminas</div>
             <div class="content">
+                <p>{texto_modelo}</p>
                 <h3>Quadro 1 - Valores Informados</h3>
                 {quadro_1}
-                <p>{texto_modelo}</p>
-            </div>
-            <div class="footer">
-                Relatório gerado em {data}.
             </div>
         </div>
     </body>
@@ -109,7 +101,7 @@ def gerar_html(conteudo, produto, data, quadro_1, texto_modelo):
     return html
 
 # Configuração da página
-st.title("Predição de Nitrosaminas com LLM")
+st.title("Predição de Nitrosaminas")
 st.header("Insira os valores para gerar o relatório")
 
 # Inputs do usuário
@@ -136,15 +128,21 @@ temperatura = st.selectbox(
 )
 
 # Função para criar o texto de saída
-def criar_texto(quadro_1, valor_tabela, nitrosamina, ifa, limite, dose):
+def criar_texto(valor_tabela, nitrosamina, ifa, limite, dose):
     # Calcula VALOR CALCULADO AQUI
     valor_calculado = (float(limite) / float(dose)) # Valor em ppm
     percentual = (valor_tabela / valor_calculado) * 100
     risco = "baixo" if percentual < 10 else "alto"
 
-    # Texto substituído
+    # Define o texto baseado no percentual
+    if percentual < 10:
+        especificacao_texto = "abaixo de 10% da especificação"
+    else:
+        especificacao_texto = "acima de 10% da especificação"
+
+    # Texto final
     texto = f"""
-    No quadro 1 deste Anexo, foi inserido valores de pH ({ph}), pKa ({pka}), níveis de nitrito ({nitrito}), quantidade de amina ({amina}) e temperatura do processo ({temperatura}°C), obtendo a quantidade de {valor_tabela} ppb formada. Conforme predição teórica de Ashworth e colaboradores, a formação de {nitrosamina} está abaixo de 10% da especificação ({valor_calculado:.2e} ppm). Desta forma, o risco para a formação de {nitrosamina} no IFA {ifa} é {risco}.
+    No quadro 1 deste Anexo, foram inseridos valores de pH ({ph}), pKa ({pka}), níveis de nitrito ({nitrito}), quantidade de amina ({amina}) e temperatura do processo ({temperatura}°C), obtendo a quantidade de {valor_tabela} ppb formada. Conforme predição teórica de Ashworth e colaboradores, a formação de {nitrosamina} está {especificacao_texto} ({valor_calculado:.2e} ppm). Desta forma, o risco para a formação de {nitrosamina} no IFA {ifa} é {risco}.
     """
     return texto
 
@@ -191,14 +189,14 @@ if st.button("Gerar Relatório"):
     quadro_1 = criar_quadro(ph, pka, nitrito, amina, temperatura, dose, limite)
 
     # Gerar Texto de Saída
-    texto_modelo = criar_texto(quadro_1, float(valor_tabela), nitrosamina, ifa, float(limite), float(dose))
+    texto_modelo = criar_texto(float(valor_tabela), nitrosamina, ifa, float(limite), float(dose))
 
     # Gerar o Documento HTML
-    html_relatorio = gerar_html(texto_modelo, ifa, data_hora, quadro_1, texto_modelo)
+    html_relatorio = gerar_html(ifa, quadro_1, texto_modelo)
 
     # Oferece o arquivo HTML para download
     st.download_button(
-        label="Baixar Anexo",
+        label="Baixar Relatório",
         data=html_relatorio,
         file_name=f"Predicao_{ifa}.html",
         mime="text/html"
