@@ -1,134 +1,30 @@
 import streamlit as st
-import markdown
-from langchain.chat_models import ChatOpenAI
-from langchain.schema import SystemMessage, HumanMessage
-from langchain.callbacks import get_openai_callback
 from datetime import datetime
-import os
-
-# Acessar a chave da API a partir do Streamlit Secrets Manager
-openai_api_key = st.secrets["openai"]["api_key"]
-os.environ["OPENAI_API_KEY"] = openai_api_key
+import pandas as pd
 
 data_hora = datetime.now().strftime("%d/%m/%Y %H:%M")
 
-def chat_rdc( prompt):
-	llm = ChatOpenAI(temperature=0.1, model='gpt-4o-mini-2024-07-18')
-	# Cria um template de prompt, no caso um sistema para indicar o tipo de resposta
-	system_message = SystemMessage(content="""
-		Você é um gerador de documentos para análise de nitrosaminas em medicamentos altamente eficiente.
-		
-        CONTEXTO:
+def localizar_ppb(amina, nitrito, temperatura, pH):
+    # Lê o arquivo CSV
+    dados = pd.read_csv('tabela.csv')
 
-        | Quantidade de Amina  | Nível de Nitrito | Temperatura (°C) | pH  | ppb produzido |
-        |----------|------------------|------------|-----|------------------------------|
-        | 1 mM     | 0.01 mg/L        | 25         | 3.15 | 3,6.10-3                     |
-        | 1 mM     | 0.01 mg/L        | 25         | 5    | 9,9.10-5                    |
-        | 1 mM     | 0.01 mg/L        | 25         | 7    | 1.10-6                      |
-        | 1 mM     | 0.01 mg/L        | 25         | 9    | 1.10-8                      |
-        | 1 mM     | 0.01 mg/L        | 35         | 3.15 | 3,6.10-2                     |
-        | 1 mM     | 0.01 mg/L        | 35         | 5    | 9,9.10-4                    |
-        | 1 mM     | 0.01 mg/L        | 35         | 7    | 1.10-5                      |
-        | 1 mM     | 0.01 mg/L        | 35         | 9    | 1.10-7                      |
-        | 1 mM     | 0.01 mg/L        | 45         | 3.15 | 3,6.10-1                     |
-        | 1 mM     | 0.01 mg/L        | 45         | 5    | 9,9.10-3                    |
-        | 1 mM     | 0.01 mg/L        | 45         | 7    | 1.10-4                      |
-        | 1 mM     | 0.01 mg/L        | 45         | 9    | 1.10-6                      |
-        | 1 mM     | 0.01 mg/L        | 55         | 3.15 | 3,6                          |
-        | 1 mM     | 0.01 mg/L        | 55         | 5    | 9,9.10-2                    |
-        | 1 mM     | 0.01 mg/L        | 55         | 7    | 1.10-3                      |
-        | 1 mM     | 0.01 mg/L        | 55         | 9    | 1.10-5                      |
-        | 1 mM     | 3 mg/L           | 25         | 3.15 | 1,5                          |
-        | 1 mM     | 3 mg/L           | 25         | 5    | 5,3.10-2                    |
-        | 1 mM     | 3 mg/L           | 25         | 7    | 5,3.10-4                    |
-        | 1 mM     | 3 mg/L           | 25         | 9    | 5,3.10-6                    |
-        | 1 mM     | 3 mg/L           | 35         | 3.15 | 14,7                         |
-        | 1 mM     | 3 mg/L           | 35         | 5    | 5,3.10-1                    |
-        | 1 mM     | 3 mg/L           | 35         | 7    | 5,3.10-3                    |
-        | 1 mM     | 3 mg/L           | 35         | 9    | 5,3.10-5                    |
-        | 1 mM     | 3 mg/L           | 45         | 3.15 | 147                          |
-        | 1 mM     | 3 mg/L           | 45         | 5    | 5,3                          |
-        | 1 mM     | 3 mg/L           | 45         | 7    | 5,3.10-2                    |
-        | 1 mM     | 3 mg/L           | 45         | 9    | 5,3.10-4                    |
-        | 1 mM     | 3 mg/L           | 55         | 3.15 | 1440                         |
-        | 1 mM     | 3 mg/L           | 55         | 5    | 53                           |
-        | 1 mM     | 3 mg/L           | 55         | 7    | 5,3.10-1                    |
-        | 1 mM     | 3 mg/L           | 55         | 9    | 5,3.10-3                    |
-        | 1 M      | 0.01 mg/L        | 25         | 3.15 | 3,5                          |
-        | 1 M      | 0.01 mg/L        | 25         | 5    | 9,9.10-2                    |
-        | 1 M      | 0.01 mg/L        | 25         | 7    | 1.10-3                      |
-        | 1 M      | 0.01 mg/L        | 25         | 9    | 1.10-5                      |
-        | 1 M      | 0.01 mg/L        | 35         | 3.15 | 32                           |
-        | 1 M      | 0.01 mg/L        | 35         | 5    | 9,9.10-1                    |
-        | 1 M      | 0.01 mg/L        | 35         | 7    | 1.10-2                      |
-        | 1 M      | 0.01 mg/L        | 35         | 9    | 1.10-4                      |
-        | 1 M      | 0.01 mg/L        | 45         | 3.15 | 145                          |
-        | 1 M      | 0.01 mg/L        | 45         | 5    | 9,6                          |
-        | 1 M      | 0.01 mg/L        | 45         | 7    | 1.10-1                      |
-        | 1 M      | 0.01 mg/L        | 45         | 9    | 1.10-3                      |
-        | 1 M      | 0.01 mg/L        | 55         | 3.15 | 163                          |
-        | 1 M      | 0.01 mg/L        | 55         | 5    | 74                           |
-        | 1 M      | 0.01 mg/L        | 55         | 7    | 1                            |
-        | 1 M      | 0.01 mg/L        | 55         | 9    | 1.10-2                      |
-        | 1 M      | 3 mg/L           | 25         | 3.15 | 1450                         |
-        | 1 M      | 3 mg/L           | 25         | 5    | 53                           |
-        | 1 M      | 3 mg/L           | 25         | 7    | 5,3.10-1                    |
-        | 1 M      | 3 mg/L           | 25         | 9    | 5,3.10-3                    |
-        | 1 M      | 3 mg/L           | 35         | 3.15 | 12300                        |
-        | 1 M      | 3 mg/L           | 35         | 5    | 521                          |
-        | 1 M      | 3 mg/L           | 35         | 7    | 5,3                          |
-        | 1 M      | 3 mg/L           | 35         | 9    | 5,3.10-2                    |
-        | 1 M      | 3 mg/L           | 45         | 3.15 | 44200                        |
-        | 1 M      | 3 mg/L           | 45         | 5    | 4870                         |
-        | 1 M      | 3 mg/L           | 45         | 7    | 53                           |
-        | 1 M      | 3 mg/L           | 45         | 9    | 5,3.10-1                    |
-        | 1 M      | 3 mg/L           | 55         | 3.15 | 48200                        |
-        | 1 M      | 3 mg/L           | 55         | 5    | 28900                        |
-        | 1 M      | 3 mg/L           | 55         | 7    | 530                          |
-        | 1 M      | 3 mg/L           | 55         | 9    | 5,3                          |
-        | 1 mM     | 1 M              | 25         | 3.15 | 740000                       |
-        | 1 mM     | 1 M              | 25         | 5    | 740000                       |
-        | 1 mM     | 1 M              | 25         | 7    | 54000                        |
-        | 1 mM     | 1 M              | 25         | 9    | 560                          |
-        | 1 mM     | 1 M              | 25* (1 h)  | 3.15 | 740000                       |
-        | 1 mM     | 1 M              | 25* (1 h)  | 5    | 210000                       |
-        | 1 mM     | 1 M              | 25* (1 h)  | 7    | 2500                         |
-        | 1 mM     | 1 M              | 25* (1 h)  | 9    | 25                           |      
-		
-        
-        Você deve:
-		- Utilizar a tabela acima para encontrar o meu 'ppb produzido' com base nos dados informados de quantidade de amina, niveis de nitrito, temperatura, pH.   
-        REGRAS:
-        - Me traga como resposta apenas o valor.       
-        - Utilize exclusivamente o contexto informado.
-        """)
-	# Prepara a mensagem do usuário (incluindo o contexto)
-	user_message = HumanMessage(content=f"{prompt}")
-	messages_to_send = [system_message, user_message]
+    # Filtro para encontrar o valor correto
+    resultado = dados[
+        (dados["amina"] == amina) &
+        (dados["nitrito"] == nitrito) &
+        (dados["temperatura"] == temperatura) &
+        (dados["pH"] == pH)
+    ]
 
-	with get_openai_callback() as callback:
-		response = llm(messages_to_send)
-		tokens = callback.total_tokens
-		custo = callback.total_cost
-		# print(f"Tokens usados: {tokens}")
-		# print(f"Custo estimado: ${custo:.6f}")		
-
-	return response.content, tokens, custo
-
-def render_markdown(text):
-    text = text.replace("markdown", "")
-    text = text.replace("```", "")
-    # Converte o texto Markdown em HTML com a extensão 'tables'
-    html = markdown.markdown(
-        text,
-        extensions=["tables", "fenced_code", "sane_lists"]
-    )
-
-    return html
+    # Verifica se o filtro encontrou resultados
+    if resultado.empty:
+        return "Combinação inválida"
+    
+    # Retorna o valor do ppb encontrado
+    return resultado["ppb"].values[0]
     
 # Função para gerar o Arquivo
-def gerar_html(conteudo, produto, data):   
-    # Cria o HTML com a logo em base64
+def gerar_html(conteudo, produto, data, quadro_1, texto_modelo):   
     html = f"""
     <!DOCTYPE html>
     <html lang="en">
@@ -157,15 +53,9 @@ def gerar_html(conteudo, produto, data):
                 background-color: #0047AB;
                 color: white;
                 padding: 20px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between; /* Alinha logo à direita e título ao centro */
-            }}
-            .title {{
+                text-align: center;
                 font-size: 24px;
                 font-weight: bold;
-                text-align: center;
-                flex-grow: 1; /* Faz o título ocupar todo o espaço disponível e ficar centralizado */
             }}
             .content {{
                 padding: 20px;
@@ -179,17 +69,10 @@ def gerar_html(conteudo, produto, data):
                 font-size: 14px;
                 color: #666;
             }}
-            .highlight {{
-                background-color: #ffefc2;
-                padding: 5px 10px;
-                border-radius: 5px;
-                color: #b37400;
-                font-weight: bold;
-            }}
             table {{
                 width: 100%;
                 border-collapse: collapse;
-                margin-top: 20px;
+                margin: 20px 0;
             }}
             th, td {{
                 border: 1px solid #ddd;
@@ -210,11 +93,11 @@ def gerar_html(conteudo, produto, data):
     </head>
     <body>
         <div class="container">
-            <div class="header">
-                <div class="title">Relatório - Predição de Nitrosaminas - {produto}</div>
-            </div>
+            <div class="header">Relatório - Predição de Nitrosaminas - {produto}</div>
             <div class="content">
-                {conteudo}
+                <h3>Quadro 1 - Valores Informados</h3>
+                {quadro_1}
+                <p>{texto_modelo}</p>
             </div>
             <div class="footer">
                 Relatório gerado em {data}.
@@ -248,30 +131,70 @@ amina = st.selectbox(
     options=["1 mM", "1 M"]
 )
 temperatura = st.selectbox(
-    "Temperatura",
-    options=['25°C', '35°C', '45°C', '55°C']
+    "Temperatura °C",
+    options=['25', '35', '45', '55', "25 (1 h)"]
 )
 
-# Botão para gerar o relatório
-if st.button("Gerar Relatório"):
-    # Construir o prompt
-    prompt = {f"""
-        quantidade de amina = {amina}
-        niveis de nitrito = {nitrito}
-        temperatura = {temperatura}
-        pH = {ph}
-        """
-    }
-    # Chamar a função de IA
-    resposta, _, _ = chat_rdc(prompt)
-    resposta_html = render_markdown(resposta)
-    # Mostrar a resposta no Streamlit
-    st.subheader("Resposta da LLM:")
-    st.markdown(resposta_html, unsafe_allow_html=True)
+# Função para criar o texto de saída
+def criar_texto(quadro_1, valor_tabela, nitrosamina, ifa, limite, dose):
+    # Calcula VALOR CALCULADO AQUI
+    valor_calculado = (float(limite) / float(dose)) / 1e6  # Valor em ppm
+    percentual = (valor_tabela / valor_calculado) * 100
+    risco = "baixo" if percentual < 10 else "alto"
 
-    # Gerar o Documento
-    html_relatorio = gerar_html(resposta_html, ifa, data_hora)
-    
+    # Texto substituído
+    texto = f"""
+    No quadro 1 deste Anexo, foi inserido valores de pH ({ph} unidades), pKa ({pka} unidades), níveis de nitrito ({nitrito}), quantidade de amina ({amina}) e temperatura do processo ({temperatura}°C), obtendo a quantidade de {valor_tabela} ppb formada. Conforme predição teórica de Ashworth e colaboradores, a formação de {nitrosamina} está abaixo de 10% da especificação ({valor_calculado:.2e} ppm). Desta forma, o risco para a formação de {nitrosamina} no IFA {ifa} é {risco}.
+    """
+    return texto
+
+# Quadro 1 em Markdown
+def criar_quadro(ph, pka, nitrito, amina, temperatura, dose, limite):
+    quadro = f"""
+    <table>
+        <thead>
+            <tr>
+                <th>pH</th>
+                <th>pKa</th>
+                <th>Níveis de Nitrito</th>
+                <th>Quantidade de Amina</th>
+                <th>Temperatura</th>
+                <th>Dose Máxima (mg/dia)</th>
+                <th>Limite de Nitrosamina (ng/dia)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{ph}</td>
+                <td>{pka}</td>
+                <td>{nitrito}</td>
+                <td>{amina}</td>
+                <td>{temperatura}°C</td>
+                <td>{dose}</td>
+                <td>{limite}</td>
+            </tr>
+        </tbody>
+    </table>
+    """
+    return quadro
+
+if st.button("Gerar Relatório"):
+    # Busca o valor da tabela
+    try:
+        valor_tabela = localizar_ppb(amina, nitrito, temperatura, ph)
+    except:
+        st.error("Combinação inválida. Verifique os valores informados.")
+        st.stop()
+
+    # Criar Quadro 1
+    quadro_1 = criar_quadro(ph, pka, nitrito, amina, temperatura, dose, limite)
+
+    # Gerar Texto de Saída
+    texto_modelo = criar_texto(quadro_1, float(valor_tabela), nitrosamina, ifa, float(limite), float(dose))
+
+    # Gerar o Documento HTML
+    html_relatorio = gerar_html(texto_modelo, ifa, data_hora, quadro_1, texto_modelo)
+
     # Oferece o arquivo HTML para download
     st.download_button(
         label="Baixar Anexo",
