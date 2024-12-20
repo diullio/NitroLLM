@@ -138,13 +138,13 @@ temperatura = st.selectbox(
 # Função para criar o texto de saída
 def criar_texto(quadro_1, valor_tabela, nitrosamina, ifa, limite, dose):
     # Calcula VALOR CALCULADO AQUI
-    valor_calculado = (float(limite) / float(dose)) / 1e6  # Valor em ppm
+    valor_calculado = (float(limite) / float(dose)) # Valor em ppm
     percentual = (valor_tabela / valor_calculado) * 100
     risco = "baixo" if percentual < 10 else "alto"
 
     # Texto substituído
     texto = f"""
-    No quadro 1 deste Anexo, foi inserido valores de pH ({ph} unidades), pKa ({pka} unidades), níveis de nitrito ({nitrito}), quantidade de amina ({amina}) e temperatura do processo ({temperatura}°C), obtendo a quantidade de {valor_tabela} ppb formada. Conforme predição teórica de Ashworth e colaboradores, a formação de {nitrosamina} está abaixo de 10% da especificação ({valor_calculado:.2e} ppm). Desta forma, o risco para a formação de {nitrosamina} no IFA {ifa} é {risco}.
+    No quadro 1 deste Anexo, foi inserido valores de pH ({ph}), pKa ({pka}), níveis de nitrito ({nitrito}), quantidade de amina ({amina}) e temperatura do processo ({temperatura}°C), obtendo a quantidade de {valor_tabela} ppb formada. Conforme predição teórica de Ashworth e colaboradores, a formação de {nitrosamina} está abaixo de 10% da especificação ({valor_calculado:.2e} ppm). Desta forma, o risco para a formação de {nitrosamina} no IFA {ifa} é {risco}.
     """
     return texto
 
@@ -186,6 +186,7 @@ if st.button("Gerar Relatório"):
         st.error("Combinação inválida. Verifique os valores informados.")
         st.stop()
 
+    st.write(f'Resultado: {valor_tabela} ppb')
     # Criar Quadro 1
     quadro_1 = criar_quadro(ph, pka, nitrito, amina, temperatura, dose, limite)
 
