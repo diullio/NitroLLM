@@ -52,13 +52,19 @@ def main():
 
             if st.button("Calcular Predição"):
                 try:
-                    if limite is None:
+                    if limite is None or not limite.replace('.', '', 1).isdigit():
                         st.error("Por favor, insira um valor válido para o Limite de Ingestão Diário (ng/dia).")
-                    if dose is None:
+                        return  
+                    if dose is None or not dose.replace('.', '', 1).isdigit():
                         st.error("Por favor, insira um valor válido para a Dose Máxima Diária (mg/dia).")
+                        return
                     valor_tabela = localizar_ppb(amina, nitrito, temperatura, ph)
                     if valor_tabela == "Combinação inválida":
                         st.error("A combinação selecionada não existe no artigo, tente novamente.")
+                        return
+                    # Calcula o risco de nitrosamina
+                    risco_nitrosamina = "baixo" if limite / dose > valor_tabela else "alto"
+
                     quadro = criar_quadro(ph, pka, nitrito, amina, temperatura, dose, limite)
                     texto = criar_texto(ph, pka, nitrito, amina, temperatura, valor_tabela, nitrosamina, ifa, limite, dose)
                     html_anexo = gerar_html(ifa, quadro, texto)
@@ -68,7 +74,6 @@ def main():
                         file_name=f"Anexo_Predicao_{ifa}.html",
                         mime="text/html",
                     )
-                    risco_nitrosamina = "baixo" if (limite / dose > valor_tabela) else "alto"
                 except Exception as e:
                     st.error(f"Erro no cálculo: {e}")
 
