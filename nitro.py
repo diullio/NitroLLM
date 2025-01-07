@@ -65,6 +65,7 @@ def main():
                         mime="text/html",
                     )
                     risco_nitrosamina = "baixo" if (limite / dose > valor_tabela) else "alto"
+                    st.session_state.risco_nitrosamina = risco_nitrosamina
                 except Exception as e:
                     st.error(f"Erro no cálculo: {e}")
     # Exibe a lista de IFAs adicionados com a opção de removê-los
@@ -98,6 +99,7 @@ def main():
                     st.error(f"Erro ao tentar remover o IFA '{ifa_para_remover}'.")
 
     if st.button("Adicionar IFA"):
+        risco_nitrosamina = st.session_state.get("risco_nitrosamina", None)
         st.session_state.dados.append(
             {
                 "ifa": ifa,
@@ -106,7 +108,7 @@ def main():
                 "difa": difa,
                 "risco": risco,
                 "nitrosamina": nitrosamina if predicao_necessaria else None,
-                "risco_nitrosamina": risco_nitrosamina if predicao_necessaria else None,
+                "risco_nitrosamina": risco_nitrosamina if risco_nitrosamina else None,
             }
         )
         st.success(f"IFA '{ifa}' adicionado com sucesso!")
