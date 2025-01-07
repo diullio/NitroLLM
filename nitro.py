@@ -1,5 +1,5 @@
 import streamlit as st
-from functions import localizar_ppb, gerar_html, criar_quadro, criar_texto, html_AR, montar_AR
+from functions import localizar_ppb, gerar_html, criar_quadro, criar_texto, html_AR
 
 # Inicializa o estado global para armazenar dados
 if "dados" not in st.session_state:
@@ -98,14 +98,12 @@ def main():
             st.error("Por favor, insira o nome do produto e adicione pelo menos um IFA.")
         else:
             html = html_AR(st.session_state.dados, produto)
-            docx_file = montar_AR(produto, html)
-            with open(docx_file, "rb") as f:
-                st.download_button(
-                    label="Baixar Avaliação de Risco",
-                    data=f,
-                    file_name=docx_file,
-                    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                )
+            st.download_button(
+                label="Baixar Avaliação de Risco",
+                data=html,
+                file_name=f"Avaliacao_Risco_{produto}.html",
+                mime="text/html",
+            )
 
 
 if __name__ == "__main__":

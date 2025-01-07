@@ -1,7 +1,7 @@
 from jinja2 import Template
 import pandas as pd
 from docx import Document
-from html2docx import HTMLToDocxParser
+
 
 #Ashworth
 def localizar_ppb(amina, nitrito, temperatura, pH):
@@ -152,18 +152,4 @@ def html_AR(dados, produto):
     html = template.render(dados=dados, produto=produto)
     return html
 
-def montar_AR(produto, html_content):
-    # Carrega o template 'intro.docx'
-    file_name = f"AR_{produto}.docx"
-    master = Document("intro.docx")
-
-    # Converter o HTML para DOCX
-    parser = HTMLToDocxParser(master)
-    parser.feed(html_content)
-
-    # Salvar o documento final gerado
-    master.save(file_name)
-
-    # Retornar o caminho do arquivo gerado para que seja possível baixar
-    return file_name
 
