@@ -52,19 +52,11 @@ def main():
 
             if st.button("Calcular Predição"):
                 try:
-                    if limite is None or not limite.replace('.', '', 1).isdigit():
-                        st.error("Por favor, insira um valor válido para o Limite de Ingestão Diário (ng/dia).")
-                        return  
-                    if dose is None or not dose.replace('.', '', 1).isdigit():
-                        st.error("Por favor, insira um valor válido para a Dose Máxima Diária (mg/dia).")
-                        return
+                    if limite is None or dose is None:
+                        st.error("Por favor, insira um valor válido para os parâmetros.")
                     valor_tabela = localizar_ppb(amina, nitrito, temperatura, ph)
                     if valor_tabela == "Combinação inválida":
-                        st.error("A combinação selecionada não existe no artigo, tente novamente.")
-                        return
-                    # Calcula o risco de nitrosamina
-                    risco_nitrosamina = "baixo" if limite / dose > valor_tabela else "alto"
-
+                        st.error("A combinação selecionada não existe no artigo.")
                     quadro = criar_quadro(ph, pka, nitrito, amina, temperatura, dose, limite)
                     texto = criar_texto(ph, pka, nitrito, amina, temperatura, valor_tabela, nitrosamina, ifa, limite, dose)
                     html_anexo = gerar_html(ifa, quadro, texto)
@@ -74,37 +66,31 @@ def main():
                         file_name=f"Anexo_Predicao_{ifa}.html",
                         mime="text/html",
                     )
+                    # Salvar os valores de risco, nitrosamina e risco_nitrosamina no session_state
+                    risco_nitrosamina = "baixo" if (limite / dose > valor_tabela) else "alto"
                 except Exception as e:
                     st.error(f"Erro no cálculo: {e}")
 
     # Exibe a lista de IFAs adicionados com a opção de removê-los
     st.subheader("IFAs Adicionados")
-    # Verifica se há IFAs armazenados no session state
     if "dados" not in st.session_state:
         st.session_state.dados = []
 
     if st.session_state.dados:
         # Cria um DataFrame para exibir os dados em forma de tabela
         dados_df = pd.DataFrame(st.session_state.dados)
-
-        # Exibe a tabela com os dados dos IFAs
         st.dataframe(dados_df)
 
-        # Adiciona uma seleção para escolher o IFA para remoção
         ifa_para_remover = st.selectbox(
             "Selecione um IFA para remover",
             options=[ifa['ifa'] for ifa in st.session_state.dados],
             key="select_ifa_remover"
         )
 
-        # Botão para remover o IFA selecionado
         if st.button("Remover IFA Selecionado"):
             if ifa_para_remover:
-                # Encontrar o índice do IFA selecionado para remoção
                 index_to_remove = next((index for index, ifa in enumerate(st.session_state.dados) if ifa['ifa'] == ifa_para_remover), None)
-
                 if index_to_remove is not None:
-                    # Remover o IFA
                     st.session_state.dados.pop(index_to_remove)
                     st.success(f"IFA '{ifa_para_remover}' removido com sucesso!")
                 else:
@@ -112,30 +98,43 @@ def main():
 
     # Botão para adicionar um novo IFA
     if st.button("Adicionar IFA"):
-        # Associa o risco de nitrosamina ao IFA específico
+        # Se a predição for necessária, valide as variáveis antes de adicionar o IFA
         if predicao_necessaria:
-            risco_nitrosamina = "baixo" if (limite / dose > valor_tabela) else "alto"
+            # Confirme que todas as variáveis de risco são válidas
+            if limite is None or dose is None or nitrosamina == "" or risco == "":
+                st.error("Por favor, preencha todos os campos de predicação corretamente antes de adicionar o IFA.")
+            else:
+                # Adiciona o IFA ao session_state com as informações recuperadas
+                st.session_state.dados.append(
+                    {
+                        "ifa": ifa,
+                        "fabricante": fabricante,
+                        "planta_fabril": planta_fabril,
+                        "difa": difa,
+                        "risco": risco,
+                        "nitrosamina": nitrosamina,
+                        "risco_nitrosamina": "baixo" if (limite / dose > valor_tabela) else "alto",  # Calcular risco aqui
+                    }
+                )
+                dados_df = pd.DataFrame(st.session_state.dados)
+                st.dataframe(dados_df)
+                st.success(f"IFA '{ifa}' adicionado com sucesso!")
         else:
-            risco_nitrosamina = None  # Quando não for necessário, podemos deixar como None
-
-        # Adiciona o IFA com todas as informações, incluindo risco_nitrosamina
-        st.session_state.dados.append(
-            {
-                "ifa": ifa,
-                "fabricante": fabricante,
-                "planta_fabril": planta_fabril,
-                "difa": difa,
-                "risco": risco,
-                "nitrosamina": nitrosamina if predicao_necessaria else None,
-                "risco_nitrosamina": risco_nitrosamina,
-            }
-        )
-
-        # Exibe a tabela novamente após adicionar o IFA
-        dados_df = pd.DataFrame(st.session_state.dados)
-        st.dataframe(dados_df)
-        
-        st.success(f"IFA '{ifa}' adicionado com sucesso!")
+            # Caso a predição não seja necessária, apenas adicione o IFA com o risco calculado
+            st.session_state.dados.append(
+                {
+                    "ifa": ifa,
+                    "fabricante": fabricante,
+                    "planta_fabril": planta_fabril,
+                    "difa": difa,
+                    "risco": risco,
+                    "nitrosamina": "",  # No caso de não haver nitrosamina
+                    "risco_nitrosamina": "",  # No caso de não haver risco nitrosamina
+                }
+            )
+            dados_df = pd.DataFrame(st.session_state.dados)
+            st.dataframe(dados_df)
+            st.success(f"IFA '{ifa}' adicionado com sucesso!")
 
     if st.button("Gerar Avaliação de Risco"):
         if not produto or not st.session_state.dados:
@@ -148,7 +147,6 @@ def main():
                 file_name=f"Avaliacao_Risco_{produto}.html",
                 mime="text/html",
             )
-
 
 if __name__ == "__main__":
     main()
