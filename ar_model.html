@@ -6,19 +6,41 @@
     <title>AR</title>
 </head>
 <style>
-    body p {
+    body {
+		font-family: Arial, Helvetica, sans-serif;
+	}
+	p {
+	  font-size: 12px;
       text-align: justify;
       line-height: 1.5;
       text-indent: 2em;
     }
+	h1 {
+	  	font-size: 14px;
+	}
+	h2 {
+	  	font-size: 14px;
+	}
+	table {
+		font-size: 12px;
+	}
   </style>
 <body>
+	<div style="display: flex; justify-content: space-between; align-items: center; width: 100%-10px; border: 2px solid #000; padding: 10px;">
+		<img src="sua-logo.png" alt="Logo" style="height: 70px; width: auto;">
+		
+		<h1 style="font-size: 16px; margin: 0; text-align: center; flex-grow: 1;">Gerenciamento de risco para a avaliação da formação e/ou contaminação por nitrosaminas no produto {{ produto }}</h1>
+		
+		<h1>GR0000000000</h1>
+	</div>
+
+<br>
 
 <h1><strong>1. Elaboração e Aprovação</strong></h1>
 
 <h2><strong>1.1 Elaboradores</strong></h2>
 
-<table border="1" cellpadding="0" cellspacing="0" style="width:100%; text-align: center; line-height: 1.5; text-indent: 2em;">
+<table border="1" cellpadding="0" cellspacing="0" style="width:100%; text-align: center; line-height: 1.5; text-indent: 0;">
 	<tbody>
 		<tr style="background-color: grey;">
 			<td>
@@ -76,7 +98,7 @@
 
 <h2><strong>1.2 Aprovadores</strong></h2>
 
-<table border="1" cellpadding="0" cellspacing="0" style="width:100%; text-align: center; line-height: 1.5; text-indent: 2em;">
+<table border="1" cellpadding="0" cellspacing="0" style="width:100%; text-align: center; line-height: 1.5; text-indent: 0;">
 	<tbody>
 		<tr style="background-color: grey;">
 			<td>
@@ -348,7 +370,7 @@
 
 <p style="text-align: center;"><strong>Quadro 1:</strong> Identificação do fabricante do IFA.</p>
 
-<table border="1" cellpadding="0" cellspacing="0" style="width:100%; text-align: center; line-height: 1.5; text-indent: 2em;">
+<table border="1" cellpadding="0" cellspacing="0" style="width:100%; text-align: center; line-height: 1.5; text-indent: 0;">
     <thead>
         <tr style="background-color: grey;">
             <th><strong>IFA</strong></th>
@@ -377,27 +399,27 @@
 
 <p style="text-align: center;">𝑆 = (0,325 ∗ 𝐷𝑀𝐷) + (0,325 ∗ 𝐷𝑇) + (0,175 ∗ 𝑃𝑃) + (0,175 ∗ 𝐿𝐴)</p>
 
-<p>S: Severidade;</p>
-<p>DMD: Dose máxima diária;</p>
-<p>DT: Duração do tratamento;</p>
-<p>PP: População de pacientes;</p>
-<p>LA: Local Ação.</p>
+<p style="line-height: 1">S: Severidade;</p>
+<p style="line-height: 1">DMD: Dose máxima diária;</p>
+<p style="line-height: 1">DT: Duração do tratamento;</p>
+<p style="line-height: 1">PP: População de pacientes;</p>
+<p style="line-height: 1">LA: Local Ação.</p>
 
 <p>A probabilidade de ocorrência foi classificada na faixa de 1 a 5. Quando as informações fornecidas são insuficientes e as possíveis causas não pudessem ser devidamente avaliadas, estas seriam classificadas com o maior nível de probabilidade. Para a detectabilidade, foram definidos três níveis (de 1 a 3), sendo que, em casos de informações insuficientes, o nível de detectabilidade mais alto será adotado.</p>
 <p>Após avaliação de todos os parâmetros de probabilidade, severidade e detectabilidade o nível de risco associado às falhas identificadas no FMEA é obtido pelo cálculo do número de prioridade de risco (NPR), representado na equação abaixo:</p>
 
 <p style="text-align: center;">𝑁𝑃𝑅 = 𝑆 𝑥 𝑃 𝑥 𝐷</p>
 
-<p>NPR: Número prioridade de risco</p>
-<p>S: Severidade;</p>
-<p>P: Probabilidade;</p>
-<p>D: Detectabilidade;</p>
+<p style="line-height: 1">NPR: Número prioridade de risco</p>
+<p style="line-height: 1">S: Severidade;</p>
+<p style="line-height: 1">P: Probabilidade;</p>
+<p style="line-height: 1">D: Detectabilidade;</p>
 
 <p>Com os valores de NPR´s obtidos, as falhas potenciais foram elencadas, pois quanto maior o valor de NPR, maior é o risco associado. O Risco Global final, associado ao insumo farmacêutico e ao produto acabado (PA), foi calculado considerando o NPR de cada fator identificado. Para esta avaliação, uma porcentagem (ponderação) foi atribuída a cada valor de NPR (descritos nos quadros 2 e 3), de acordo com o impacto e criticidade deste no risco final.</p>
 
 <p style="text-align: center;"><strong>Quadro 2:</strong> Ponderação para cada fator no cálculo do risco global para o IFA</p>
 
-<table border="1" cellpadding="0" cellspacing="0" style="width:100%; text-align: center; line-height: 1.5; text-indent: 2em;">
+<table border="1" cellpadding="0" cellspacing="0" style="width:100%; text-align: center; line-height: 1.5; text-indent: 0">
     <tbody>
         <tr style="background-color: grey;">
             <td><strong>IFA</strong></td>
@@ -440,7 +462,7 @@
 
 <p style="text-align: center;"><strong>Quadro 3:</strong> Ponderação para cada fator no cálculo do risco global para o PA.</p>
 
-<table border="1" cellpadding="0" cellspacing="0" style="width:100%; text-align: center; line-height: 1.5; text-indent: 2em;">
+<table border="1" cellpadding="0" cellspacing="0" style="width:100%; text-align: center; line-height: 1.5; text-indent: 0">
     <tbody>
         <tr style="background-color: grey;">
             <td><strong>IFA</strong></td>
@@ -485,7 +507,7 @@
 
 <p style="text-align: center;"><strong>Quadro 4: </strong>Classificação do Risco</p>
 
-<table border="1" cellpadding="0" cellspacing="0" style="width:100%; text-align: center; line-height: 1.5; text-indent: 2em;">
+<table border="1" cellpadding="0" cellspacing="0" style="width:100%; text-align: center; line-height: 1.5; text-indent: 0">
     <tbody>
         <tr style="background-color: grey;">
             <td>

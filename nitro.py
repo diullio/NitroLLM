@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 from functions import localizar_ppb, gerar_html, criar_quadro, criar_texto, html_AR
 
 # Inicializa o estado global para armazenar dados
@@ -68,16 +69,33 @@ def main():
                     st.error(f"Erro no cálculo: {e}")
     # Exibe a lista de IFAs adicionados com a opção de removê-los
     st.subheader("IFAs Adicionados")
+    # Verifica se há IFAs armazenados no session state
     if st.session_state.dados:
-        for index, ifa_data in enumerate(st.session_state.dados):
-            col_remove, col_display = st.columns([1, 5])
-            with col_display:
-                st.write(f"{index + 1}. {ifa_data['ifa']} - {ifa_data['fabricante']}")
-            with col_remove:
-                if st.button(f"Remover {ifa_data['ifa']}", key=f"remove_{index}"):
-                    st.session_state.dados.pop(index)
-                    st.success(f"IFA '{ifa_data['ifa']}' removido com sucesso!")
-                    break  # Saia do loop para evitar erro de modificação da lista durante iteração
+        # Cria um DataFrame para exibir os dados em forma de tabela
+        dados_df = pd.DataFrame(st.session_state.dados)
+
+        # Exibe a tabela com os dados dos IFAs
+        st.dataframe(dados_df)
+
+        # Adiciona uma seleção para escolher o IFA para remoção
+        ifa_para_remover = st.selectbox(
+            "Selecione um IFA para remover",
+            options=[ifa['ifa'] for ifa in st.session_state.dados],
+            key="select_ifa_remover"
+        )
+
+        # Botão para remover o IFA selecionado
+        if st.button("Remover IFA Selecionado"):
+            if ifa_para_remover:
+                # Encontrar o índice do IFA selecionado para remoção
+                index_to_remove = next((index for index, ifa in enumerate(st.session_state.dados) if ifa['ifa'] == ifa_para_remover), None)
+
+                if index_to_remove is not None:
+                    # Remover o IFA
+                    st.session_state.dados.pop(index_to_remove)
+                    st.success(f"IFA '{ifa_para_remover}' removido com sucesso!")
+                else:
+                    st.error(f"Erro ao tentar remover o IFA '{ifa_para_remover}'.")
 
     if st.button("Adicionar IFA"):
         st.session_state.dados.append(
