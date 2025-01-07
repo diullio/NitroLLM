@@ -19,7 +19,7 @@ def main():
     st.title("Gerador de Avaliação de Risco (AR)")
 
     produto = st.text_input("Nome do Produto", key="produto")
-    col1, col2, col3 = st.columns([1, 1, 2])
+    col1, col3 = st.columns([2, 2])
 
     with col1:
         ifa = st.text_input("IFA", key="ifa")
