@@ -133,7 +133,7 @@ def criar_quadro(ph, pka, nitrito, amina, temperatura, dose, limite):
 # Função para criar o texto de saída
 def criar_texto(ph, pka, nitrito, amina, temperatura, valor_tabela, nitrosamina, ifa, limite, dose):
     valor_calculado = float(limite) / float(dose)
-    percentual = (valor_tabela * 1000 / valor_calculado) * 100
+    percentual = (valor_tabela / (valor_calculado * 1000)) * 100
     risco = "baixo" if percentual < 10 else "alto"
     especificacao_texto = (
         "abaixo de 10% da especificação" if percentual < 10 else "acima de 10% da especificação"
