@@ -69,16 +69,10 @@ def main():
             except Exception as e:
                 st.error(f"Erro no cálculo: {e}")
 
-    # Exibe a lista de IFAs adicionados com a opção de removê-los
-    st.subheader("IFAs Adicionados")
     if "dados" not in st.session_state:
         st.session_state.dados = []
 
     if st.session_state.dados:
-        # Cria um DataFrame para exibir os dados em forma de tabela
-        dados_df = pd.DataFrame(st.session_state.dados)
-        st.dataframe(dados_df)
-
         ifa_para_remover = st.selectbox(
             "Selecione um IFA para remover",
             options=[ifa['ifa'] for ifa in st.session_state.dados],
