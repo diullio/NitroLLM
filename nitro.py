@@ -72,23 +72,7 @@ def main():
     if "dados" not in st.session_state:
         st.session_state.dados = []
 
-    if st.session_state.dados:
-        ifa_para_remover = st.selectbox(
-            "Selecione um IFA para remover",
-            options=[ifa['ifa'] for ifa in st.session_state.dados],
-            key="select_ifa_remover"
-        )
-
-        if st.button("Remover IFA Selecionado"):
-            if ifa_para_remover:
-                index_to_remove = next((index for index, ifa in enumerate(st.session_state.dados) if ifa['ifa'] == ifa_para_remover), None)
-                if index_to_remove is not None:
-                    st.session_state.dados.pop(index_to_remove)
-                    st.success(f"IFA '{ifa_para_remover}' removido com sucesso!")
-                else:
-                    st.error(f"Erro ao tentar remover o IFA '{ifa_para_remover}'.")
-
-    # Botão para adicionar um novo IFA
+        # Botão para adicionar um novo IFA
     if st.button("Adicionar IFA"):
         if limite and dose:
             valor_tabela = localizar_ppb(amina, nitrito, temperatura, ph)
@@ -110,6 +94,26 @@ def main():
         dados_df = pd.DataFrame(st.session_state.dados)
         st.dataframe(dados_df)
         st.success(f"IFA '{ifa}' adicionado com sucesso!")
+
+    if st.session_state.dados:
+        # Cria um DataFrame para exibir os dados em forma de tabela
+        dados_df = pd.DataFrame(st.session_state.dados)
+        st.dataframe(dados_df)
+
+        ifa_para_remover = st.selectbox(
+            "Selecione um IFA para remover",
+            options=[ifa['ifa'] for ifa in st.session_state.dados],
+            key="select_ifa_remover"
+        )
+
+        if st.button("Remover IFA Selecionado"):
+            if ifa_para_remover:
+                index_to_remove = next((index for index, ifa in enumerate(st.session_state.dados) if ifa['ifa'] == ifa_para_remover), None)
+                if index_to_remove is not None:
+                    st.session_state.dados.pop(index_to_remove)
+                    st.success(f"IFA '{ifa_para_remover}' removido com sucesso!")
+                else:
+                    st.error(f"Erro ao tentar remover o IFA '{ifa_para_remover}'.")
 
     if st.button("Gerar Avaliação de Risco"):
         if not produto or not st.session_state.dados:
