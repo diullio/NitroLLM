@@ -53,6 +53,7 @@ def main():
                 if limite is None or dose is None:
                     st.error("Por favor, insira um valor válido para os parâmetros.")
                 valor_tabela = localizar_ppb(amina, nitrito, temperatura, ph)
+                valor_tabela = float(valor_tabela)/1000
                 if valor_tabela == "Combinação inválida":
                     st.error("A combinação selecionada não existe no artigo.")
                 st.write(f"Limite: {limite}, Dose: {dose}, Valor Tabela: {valor_tabela}")
@@ -78,6 +79,7 @@ def main():
     if st.button("Adicionar IFA"):
         if limite and dose:
             valor_tabela = localizar_ppb(amina, nitrito, temperatura, ph)
+            valor_tabela = float(valor_tabela)/1000
             risco_nitrosamina = "baixo" if (limite / dose > valor_tabela) else "alto"
         else:
             nitrosamina = None
@@ -93,8 +95,6 @@ def main():
                     "risco_nitrosamina": risco_nitrosamina if risco_nitrosamina else None,  # No caso de não haver risco nitrosamina
             }
         )
-        dados_df = pd.DataFrame(st.session_state.dados)
-        st.dataframe(dados_df)
         st.success(f"IFA '{ifa}' adicionado com sucesso!")
 
     if st.session_state.dados:
