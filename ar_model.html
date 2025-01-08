@@ -581,11 +581,11 @@
         <br>
     {% endfor %}
     <!-- PA -->
-    Anexo {{ dados|length + 1|romanize }}: <i>Failure Mode and Effect Analysis</i> para o PA.
+    Anexo {{ (dados|length + 1) | romanize }}: <i>Failure Mode and Effect Analysis</i> para o PA.
     <br>
     <!-- Predições -->
     {% for anexo in dados_anexos %}
-        Anexo {{ loop.index + dados|length + 1|romanize }}: Predição de Ashworth realizada para o IFA {{ anexo.ifa }};
+        Anexo {{ (loop.index + dados|length + 1) | romanize }}: Predição de Ashworth realizada para o IFA {{ anexo.ifa }};
         <br>
     {% endfor %}
 </p>
