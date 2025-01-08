@@ -139,7 +139,7 @@ def main():
             st.error("Por favor, insira o nome do produto e adicione pelo menos um IFA.")
         else:
             num_anexos = (len(st.session_state.anexos) + len(st.session_state.ifa))
-            html = html_AR(st.session_state.dados, produto, num_anexos, st.session_state.anexos, elaborador=elaborador)
+            html = html_AR(st.session_state.dados, produto, num_anexos, st.session_state.anexos, elaborador)
             st.download_button(
                 label="Baixar Avaliação de Risco",
                 data=html,
