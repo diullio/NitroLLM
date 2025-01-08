@@ -1,4 +1,4 @@
-from jinja2 import Template
+from jinja2 import Environment, FileSystemLoader
 import pandas as pd
 
 #Ashworth
@@ -154,12 +154,22 @@ def int_to_roman(n):
 
 #Funcao para gerar analise de risco
 def html_AR(dados, produto, num_anexo, dados_anexos, elaborador):
-    # Carrega o modelo HTML do arquivo `ar_model.html`
-    with open("ar_model.html", "r", encoding="utf-8") as file:
-        template = Template(file.read())
-        
-    # Renderiza o HTML com os dados fornecidos
-    html = template.render(dados=dados, produto=produto, num_anexo=num_anexo, dados_anexos=dados_anexos, elaborador=elaborador)
-    return html
+    env = Environment(loader=FileSystemLoader('.'))
+    # Registrar o filtro 'romanize'
+    env.filters['romanize'] = int_to_roman
+    
+    template = env.get_template("ar_model.html")
+    try:
+        html = template.render(
+            dados=dados,
+            produto=produto,
+            num_anexo=num_anexo,
+            dados_anexos=dados_anexos,
+            elaborador=elaborador
+        )
+        return html
+    except Exception as e:
+        print("Erro ao renderizar template:", e)
+        raise
 
 
