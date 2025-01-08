@@ -23,6 +23,7 @@ def main():
     col1, col3 = st.columns([2, 2])
 
     with col1:
+        st.subheader("Informações do IFA")
         ifa = st.text_input("IFA", key="ifa")
         fabricante = st.text_input("Fabricante", key="fabricante")
         planta_fabril = st.text_input("Planta Fabril", key="planta_fabril")
@@ -54,6 +55,7 @@ def main():
                 valor_tabela = localizar_ppb(amina, nitrito, temperatura, ph)
                 if valor_tabela == "Combinação inválida":
                     st.error("A combinação selecionada não existe no artigo.")
+                st.write(f"Limite: {limite}, Dose: {dose}, Valor Tabela: {valor_tabela}")
                 # Salvar os valores de risco, nitrosamina e risco_nitrosamina no session_state
                 risco_nitrosamina = "baixo" if (limite / dose > valor_tabela) else "alto"
                 quadro = criar_quadro(ph, pka, nitrito, amina, temperatura, dose, limite)
