@@ -14,13 +14,24 @@ def validar_float(input_value):
         return float(input_value)
     except ValueError:
         return None
-
+    
 # Função principal
 def main():
     st.title("Gerador de Avaliação de Risco (AR)")
 
+    st.markdown(
+    '<a href="https://products.aspose.app/words/pt/conversion" target="_blank">Para converter o documento gerado clique aqui</a>',
+    unsafe_allow_html=True
+)
+
     produto = st.text_input("Nome do Produto", key="produto")
     col1, col3 = st.columns([2, 2])
+
+    if "dados" not in st.session_state:
+        st.session_state.dados = []
+
+    if "anexos" not in st.session_state:
+        st.session_state.anexos = []    
 
     with col1:
         st.subheader("Informações do IFA")
@@ -56,12 +67,20 @@ def main():
                 valor_tabela = float(valor_tabela)/1000
                 if valor_tabela == "Combinação inválida":
                     st.error("A combinação selecionada não existe no artigo.")
-                st.write(f"Limite: {limite}, Dose: {dose}, Valor Tabela: {valor_tabela}")
+                st.write(f"Limite: {limite} ng/dia, Dose: {dose} mg/dia, Valor Tabela: {valor_tabela} ppb")
                 # Salvar os valores de risco, nitrosamina e risco_nitrosamina no session_state
                 risco_nitrosamina = "baixo" if (limite / dose > valor_tabela) else "alto"
                 quadro = criar_quadro(ph, pka, nitrito, amina, temperatura, dose, limite)
                 texto = criar_texto(ph, pka, nitrito, amina, temperatura, valor_tabela, nitrosamina, ifa, limite, dose)
                 html_anexo = gerar_html(ifa, quadro, texto)
+
+                # Adicionar o anexo gerado à lista de anexos
+                st.session_state.anexos.append({
+                    "ifa": ifa,
+                    "nitrosamina": nitrosamina,
+                    "risco_nitrosamina": risco_nitrosamina
+                })
+
                 st.download_button(
                     "Baixar Anexo Predição",
                     data=html_anexo,
@@ -71,9 +90,6 @@ def main():
                 
             except Exception as e:
                 st.error(f"Erro no cálculo: {e}")
-
-    if "dados" not in st.session_state:
-        st.session_state.dados = []
 
         # Botão para adicionar um novo IFA
     if st.button("Adicionar IFA"):
@@ -121,7 +137,8 @@ def main():
         if not produto or not st.session_state.dados:
             st.error("Por favor, insira o nome do produto e adicione pelo menos um IFA.")
         else:
-            html = html_AR(st.session_state.dados, produto)
+            num_anexos = (len(st.session_state.anexos) + len(st.session_state.ifa))
+            html = html_AR(st.session_state.dados, produto, num_anexos, st.session_state.anexos)
             st.download_button(
                 label="Baixar Avaliação de Risco",
                 data=html,

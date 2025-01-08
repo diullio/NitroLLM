@@ -13,7 +13,7 @@
 	  font-size: 12px;
       text-align: justify;
       line-height: 1.5;
-      text-indent: 2em;
+      text-indent: 1px;
     }
 	h1 {
 	  	font-size: 14px;
@@ -26,16 +26,6 @@
 	}
   </style>
 <body>
-	<div style="display: flex; justify-content: space-between; align-items: center; width: 100%-10px; border: 2px solid #000; padding: 10px;">
-		<img src="sua-logo.png" alt="Logo" style="height: 70px; width: auto;">
-		
-		<h1 style="font-size: 16px; margin: 0; text-align: center; flex-grow: 1;">Gerenciamento de risco para a avaliação da formação e/ou contaminação por nitrosaminas no produto {{ produto }}</h1>
-		
-		<h1>GR0000000000</h1>
-	</div>
-
-<br>
-
 <h1><strong>1. Elaboração e Aprovação</strong></h1>
 
 <h2><strong>1.1 Elaboradores</strong></h2>
@@ -67,24 +57,7 @@
 				Analista
 			</td>
 			<td>
-				&nbsp;
-			</td>
-			<td>
-				&nbsp;
-			</td>
-			<td>
-				&nbsp;
-			</td>
-		</tr>
-		<tr>
-			<td>
-				P&D - Analítico
-			</td>
-			<td>
-				Analista
-			</td>
-			<td>
-				&nbsp;
+				{{nome_analista}}
 			</td>
 			<td>
 				&nbsp;
@@ -392,10 +365,10 @@
 </table>
 
 <p>A avaliação dos potenciais riscos associados à formação de nitrosaminas no IFA e no produto acabado, foi realizada por meio de uma avaliação interdisciplinar, envolvendo os setores de Desenvolvimento Analítico, Desenvolvimento Farmacotécnico, Desenvolvimento de Embalagem, Assuntos Regulatórios, Garantia da Qualidade - Qualificação de Fornecedores, Garantia da Qualidade - Validação de Limpeza e Garantia da Qualidade - Gerenciamento de riscos.</p>
-<p>A identificação das principais fontes de contribuição para a formação de nitrosaminas foi conduzida utilizando a ferramenta Failure Mode and Effect Analysis (FMEA). O FMEA permite identificar os modos de falha mais críticos do processo e, ao estabelecer esses modos, estratégias de redução de risco podem ser utilizadas para eliminar, conter, reduzir ou controlar as falhas potenciais [2], [3], [4].</p>
+<p>A identificação das principais fontes de contribuição para a formação de nitrosaminas foi conduzida utilizando a ferramenta <i>Failure Mode and Effect Analysis</i> (FMEA). O FMEA permite identificar os modos de falha mais críticos do processo e, ao estabelecer esses modos, estratégias de redução de risco podem ser utilizadas para eliminar, conter, reduzir ou controlar as falhas potenciais [2], [3], [4].</p>
 <p>Cada fator identificado foi classificado em relação à sua severidade (S), probabilidade (P) e detectabilidade (D). Estes parâmetros foram classificados com valores numéricos. Para descrever a severidade e probabilidade foram adotados cinco níveis numéricos, enquanto para a detectabilidade foram utilizados três níveis [5], [6].</p>
 <p>Para severidade, foram considerados quatro parâmetros. Dois destes, dose máxima diária e duração do tratamento, foram classificados em cinco níveis, de 1 a 5. Já os parâmetros local de ação (LA) e população de pacientes (PP), foram classificados em dois níveis de severidade: 1 e 5. Adicionalmente, foi estabelecido que, sempre que as informações fornecidas fossem insuficientes e as possíveis causas não pudessem ser devidamente avaliadas, estas seriam classificadas com o maior nível de severidade.</p>
-<p>Com base na tese “Risk assessment and mitigation of the presence of Nitrosamine impurities in medicines” de Maria Inês Lapo, foi avaliada a importância desses fatores e estimou-se um percentual para cada um deles [5]. Assim, é possível resumir o cálculo de severidade com a equação abaixo:</p>
+<p>Com base na tese <i>“Risk assessment and mitigation of the presence of Nitrosamine impurities in medicines”</i> de Maria Inês Lapo, foi avaliada a importância desses fatores e estimou-se um percentual para cada um deles [5]. Assim, é possível resumir o cálculo de severidade com a equação abaixo:</p>
 
 <p style="text-align: center;">𝑆 = (0,325 ∗ 𝐷𝑀𝐷) + (0,325 ∗ 𝐷𝑇) + (0,175 ∗ 𝑃𝑃) + (0,175 ∗ 𝐿𝐴)</p>
 
@@ -559,11 +532,11 @@
 <h1><strong>5. Resultados Observados</strong></h1>
 
 <p>
-    Os resultados foram estabelecidos e estão disponíveis nos 
-    {% for item in dados %}
-        Anexo {{ loop.index }}{% if not loop.last %}, {% else %} e {% endif %}
+    Os resultados foram estabelecidos e estão disponíveis nos Anexos
+    {% for item in range(1, num_anexos + 1) %}
+        {{ item | romanize }}{% if not loop.last %}, {% else %} e {% endif %}
     {% endfor %}
-    Anexo {{ dados|length + 1 }} desta avaliação de risco, sendo possível verificar a tabela contendo os itens avaliados, com os pesos a serem considerados.
+    desta avaliação de risco, sendo possível verificar a tabela contendo os itens avaliados, com os pesos a serem considerados.
 </p>
 
 {% for item in dados %}
@@ -604,10 +577,17 @@
 
 <p style="text-indent: 0em;">
     {% for item in dados %}
-        Anexo {{ loop.index }}: Failure Mode and Effect Analysis para o IFA {{ item.ifa }} do fabricante {{ item.fabricante }};
+        Anexo {{ loop.index|romanize }}: <i>Failure Mode and Effect Analysis</i> para o IFA {{ item.ifa }} do fabricante {{ item.fabricante }};
         <br>
     {% endfor %}
-    Anexo {{ dados|length + 1 }}: Failure Mode and Effect Analysis para o PA.
+    <!-- PA -->
+    Anexo {{ dados|length + 1|romanize }}: <i>Failure Mode and Effect Analysis</i> para o PA.
+    <br>
+    <!-- Predições -->
+    {% for anexo in dados_anexos %}
+        Anexo {{ loop.index + dados|length + 1|romanize }}: Predição de Ashworth realizada para o IFA {{ anexo.ifa }};
+        <br>
+    {% endfor %}
 </p>
 
 <h1><strong>9. Histórico de Revisão</strong></h1>

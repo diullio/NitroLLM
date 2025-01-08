@@ -1,6 +1,5 @@
-from jinja2 import Template
+from jinja2 import Environment, Template
 import pandas as pd
-from docx import Document
 
 
 #Ashworth
@@ -142,14 +141,33 @@ def criar_texto(ph, pka, nitrito, amina, temperatura, valor_tabela, nitrosamina,
     No quadro 1 deste Anexo, foram inseridos valores de pH ({ph}), pKa ({pka}), níveis de nitrito ({nitrito}), quantidade de amina ({amina}) e temperatura do processo ({temperatura}°C), obtendo a quantidade de {valor_tabela} ppb formada. Conforme predição teórica de Ashworth e colaboradores, a formação de {nitrosamina} está {especificacao_texto} ({valor_calculado:.2e} ppm). Desta forma, o risco para a formação de {nitrosamina} no IFA {ifa} é {risco}.
     """
 
+def int_to_roman(n):
+    roman_numerals = {
+        1: 'I', 4: 'IV', 5: 'V', 9: 'IX', 10: 'X', 40: 'XL', 50: 'L', 90: 'XC',
+        100: 'C', 400: 'CD', 500: 'D', 900: 'CM', 1000: 'M'
+    }
+    result = ''
+    for value, numeral in sorted(roman_numerals.items(), reverse=True):
+        while n >= value:
+            result += numeral
+            n -= value
+    return result
+
 #Funcao para gerar analise de risco
-def html_AR(dados, produto):
+def html_AR(dados, produto, num_anexo, dados_anexos):
     # Carrega o modelo HTML do arquivo `ar_model.html`
     with open("ar_model.html", "r", encoding="utf-8") as file:
-        template = Template(file.read())
+        template_content = file.read()
+    
+    # Configura o ambiente Jinja2 e registra o filtro personalizado
+    env = Environment()
+    env.filters['romanize'] = int_to_roman
+
+    # Cria o template a partir do conteúdo
+    template = env.from_string(template_content)
 
     # Renderiza o HTML com os dados fornecidos
-    html = template.render(dados=dados, produto=produto)
+    html = template.render(dados=dados, produto=produto, num_anexo=num_anexo, dados_anexos=dados_anexos)
     return html
 
 
