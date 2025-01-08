@@ -534,7 +534,7 @@
 <p>
     Os resultados foram estabelecidos e estão disponíveis nos Anexos:
     {% for i in num_range %}
-        {{ i | romanize }}{% if not loop.last %}, {% else %} e {{ (num_range + 1) | romanize }} {% endif %}
+        {{ i | romanize }}{% if not loop.last %}, {% else %} e {% endif %} {{ (num_range + 1) | romanize }} 
     {% endfor %}
     desta avaliação de risco, sendo possível verificar a tabela contendo os itens avaliados, com os pesos a serem considerados.
 </p>
