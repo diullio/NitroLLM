@@ -24,6 +24,7 @@ def main():
     unsafe_allow_html=True
 )
 
+    elaborador = st.text_input("Elaborador", key="elaborador")
     produto = st.text_input("Nome do Produto", key="produto")
     col1, col3 = st.columns([2, 2])
 
@@ -138,7 +139,7 @@ def main():
             st.error("Por favor, insira o nome do produto e adicione pelo menos um IFA.")
         else:
             num_anexos = (len(st.session_state.anexos) + len(st.session_state.ifa))
-            html = html_AR(st.session_state.dados, produto, num_anexos, st.session_state.anexos)
+            html = html_AR(st.session_state.dados, produto, num_anexos, st.session_state.anexos, elaborador=elaborador)
             st.download_button(
                 label="Baixar Avaliação de Risco",
                 data=html,

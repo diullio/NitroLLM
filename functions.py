@@ -154,7 +154,7 @@ def int_to_roman(n):
     return result
 
 #Funcao para gerar analise de risco
-def html_AR(dados, produto, num_anexo, dados_anexos):
+def html_AR(dados, produto, num_anexo, dados_anexos, elaborador):
     # Carrega o modelo HTML do arquivo `ar_model.html`
     with open("ar_model.html", "r", encoding="utf-8") as file:
         template_content = file.read()
@@ -167,7 +167,7 @@ def html_AR(dados, produto, num_anexo, dados_anexos):
     template = env.from_string(template_content)
 
     # Renderiza o HTML com os dados fornecidos
-    html = template.render(dados=dados, produto=produto, num_anexo=num_anexo, dados_anexos=dados_anexos)
+    html = template.render(dados=dados, produto=produto, num_anexo=num_anexo, dados_anexos=dados_anexos, elaborador=elaborador)
     return html
 
 
