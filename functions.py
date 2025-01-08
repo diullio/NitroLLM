@@ -157,13 +157,16 @@ def html_AR(dados, produto, num_anexo, dados_anexos, elaborador):
     env = Environment(loader=FileSystemLoader('.'))
     # Registrar o filtro 'romanize'
     env.filters['romanize'] = int_to_roman
-    
+
+    # Criar lista de números para simular range no template
+    num_range = list(range(1, num_anexo + 1))
+
     template = env.get_template("ar_model.html")
     try:
         html = template.render(
             dados=dados,
             produto=produto,
-            num_anexo=num_anexo,
+            num_range=num_range,
             dados_anexos=dados_anexos,
             elaborador=elaborador
         )
