@@ -153,13 +153,12 @@ def int_to_roman(n):
     return result
 
 #Funcao para gerar analise de risco
-def html_AR(dados, produto, num_anexo, dados_anexos, elaborador):
+def html_AR(dados, produto, dados_anexos, elaborador):
     env = Environment(loader=FileSystemLoader('.'))
     # Registrar o filtro 'romanize'
     env.filters['romanize'] = int_to_roman
 
-    # Criar lista de números para simular range no template
-    num_range = list(range(1, num_anexo + 1))
+    num_range = list(range(1, len(dados) + 1))
 
     template = env.get_template("ar_model.html")
     try:
