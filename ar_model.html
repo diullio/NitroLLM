@@ -534,7 +534,7 @@
 <p>
     Os resultados foram estabelecidos e estão disponíveis nos Anexos
     {% for item in range(1, num_anexos + 1) %}
-        {{ item | romanize }}{% if not loop.last %}, {% else %} e {% endif %}
+        {{ item }}{% if not loop.last %}, {% else %} e {% endif %}
     {% endfor %}
     desta avaliação de risco, sendo possível verificar a tabela contendo os itens avaliados, com os pesos a serem considerados.
 </p>
@@ -577,15 +577,15 @@
 
 <p style="text-indent: 0em;">
     {% for item in dados %}
-        Anexo {{ loop.index|romanize }}: <i>Failure Mode and Effect Analysis</i> para o IFA {{ item.ifa }} do fabricante {{ item.fabricante }};
+        Anexo {{ loop.index }}: <i>Failure Mode and Effect Analysis</i> para o IFA {{ item.ifa }} do fabricante {{ item.fabricante }};
         <br>
     {% endfor %}
     <!-- PA -->
-    Anexo {{ dados|length + 1|romanize }}: <i>Failure Mode and Effect Analysis</i> para o PA.
+    Anexo {{ dados|length + 1 }}: <i>Failure Mode and Effect Analysis</i> para o PA.
     <br>
     <!-- Predições -->
     {% for anexo in dados_anexos %}
-        Anexo {{ loop.index + dados|length + 1|romanize }}: Predição de Ashworth realizada para o IFA {{ anexo.ifa }};
+        Anexo {{ loop.index + dados|length + 1}}: Predição de Ashworth realizada para o IFA {{ anexo.ifa }};
         <br>
     {% endfor %}
 </p>

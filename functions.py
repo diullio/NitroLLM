@@ -1,6 +1,5 @@
-from jinja2 import Environment, Template
+from jinja2 import Template
 import pandas as pd
-
 
 #Ashworth
 def localizar_ppb(amina, nitrito, temperatura, pH):
@@ -157,15 +156,8 @@ def int_to_roman(n):
 def html_AR(dados, produto, num_anexo, dados_anexos, elaborador):
     # Carrega o modelo HTML do arquivo `ar_model.html`
     with open("ar_model.html", "r", encoding="utf-8") as file:
-        template_content = file.read()
-    
-    # Configura o ambiente Jinja2 e registra o filtro personalizado
-    env = Environment()
-    env.filters['romanize'] = int_to_roman
-
-    # Cria o template a partir do conteúdo
-    template = env.from_string(template_content)
-
+        template = Template(file.read())
+        
     # Renderiza o HTML com os dados fornecidos
     html = template.render(dados=dados, produto=produto, num_anexo=num_anexo, dados_anexos=dados_anexos, elaborador=elaborador)
     return html
