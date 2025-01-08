@@ -534,7 +534,7 @@
 <p>
     Os resultados foram estabelecidos e estão disponíveis nos Anexos:
     {% for i in num_range %}
-        {{ i | romanize }}{% if not loop.last %}, {% else %} e {% endif %}
+        {{ i | romanize }}{% if not loop.last %}, {% else %} e {{ (num_range + 1) | romanize }} {% endif %}
     {% endfor %}
     desta avaliação de risco, sendo possível verificar a tabela contendo os itens avaliados, com os pesos a serem considerados.
 </p>
@@ -550,7 +550,7 @@
             A predição teórica calculada ficou 
             {{ "abaixo de 10% da especificação" if item.risco_nitrosamina == "baixo" else "acima de 10% da especificação" }},
             demonstrando que o risco para formação de nitrosaminas é {{ "baixo" if item.risco_nitrosamina == "baixo" else "alto" }}.
-			{% set num_anexos = num_anexos + 1 %}
+            {% set num_anexos = (num_anexos + 1) %}  <!-- Incrementa somente se houver nitrosamina -->
         {% endif %}
     </p>
 {% endfor %}
