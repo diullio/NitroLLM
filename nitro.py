@@ -78,6 +78,7 @@ def main():
                 # Adicionar o anexo gerado à lista de anexos
                 st.session_state.anexos.append({
                     "ifa": ifa,
+                    "fabricante": fabricante,
                     "nitrosamina": nitrosamina,
                     "risco_nitrosamina": risco_nitrosamina
                 })

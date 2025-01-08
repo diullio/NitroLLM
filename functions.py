@@ -111,7 +111,7 @@ def criar_quadro(ph, pka, nitrito, amina, temperatura, dose, limite):
                 <th>Quantidade de Amina</th>
                 <th>Temperatura</th>
                 <th>Dose Máxima (mg/dia)</th>
-                <th>Limite de Nitrosamina (ng/dia)</th>
+                <th>Limite de Nitrosamina (ng/dia) [1]</th>
             </tr>
         </thead>
         <tbody>
@@ -138,6 +138,8 @@ def criar_texto(ph, pka, nitrito, amina, temperatura, valor_tabela, nitrosamina,
     )
     return f"""
     No quadro 1 deste Anexo, foram inseridos valores de pH ({ph}), pKa ({pka}), níveis de nitrito ({nitrito}), quantidade de amina ({amina}) e temperatura do processo ({temperatura}°C), obtendo a quantidade de {valor_tabela} ppb formada. Conforme predição teórica de Ashworth e colaboradores, a formação de {nitrosamina} está {especificacao_texto} ({valor_calculado:.2e} ppm). Desta forma, o risco para a formação de {nitrosamina} no IFA {ifa} é {risco}.
+    
+    [1] I. W. Ashworth, O. Dirat, A. Teasdale, and M. Whiting, “Potential for the Formation of N-Nitrosamines during the Manufacture of Active Pharmaceutical Ingredients: An Assessment of the Risk Posed by Trace Nitrite in Water,” Org Process Res Dev, vol. 24, no. 9, pp. 1629–1646, Sep. 2020, doi: 10.1021/acs.oprd.0c00224.
     """
 
 def int_to_roman(n):

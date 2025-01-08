@@ -586,7 +586,7 @@
     <br>
     <!-- Predições -->
     {% for anexo in dados_anexos %}
-        Anexo {{ (loop.index + dados|length + 1) | romanize }}: Predição de Ashworth realizada para o IFA {{ anexo.ifa }};
+        Anexo {{ (loop.index + dados|length + 1) | romanize }}: Predição de Ashworth realizada para o IFA {{ anexo.ifa }} do fabricante {{ anexo.fabricante }};
         <br>
     {% endfor %}
 </p>
