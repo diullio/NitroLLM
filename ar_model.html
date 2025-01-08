@@ -539,18 +539,15 @@
 	desta avaliação de risco, sendo possível verificar a tabela contendo os itens avaliados, com os pesos a serem considerados.
 </p>
 
-{% set num_anexos = (dados|length + 1) %}  <!-- Número de anexos baseados nos dados -->
-
 {% for item in dados %}
     <p>
         Para o IFA {{ item.ifa }} do fabricante {{ item.fabricante }}, o risco global calculado foi de {{ item.risco }},
         o que categoriza um risco {{ 'baixo' if item.risco <= 11 else 'médio' if item.risco <= 26 else 'alto' }} para a formação de nitrosaminas.
         {% if item.nitrosamina %}
-            Conforme anexo {{ num_anexos | romanize }}, foi necessário realizar predição teórica para a impureza {{ item.nitrosamina }}.
+            Conforme anexo {{ item.predicao | romanize }}, foi necessário realizar predição teórica para a impureza {{ item.nitrosamina }}.
             A predição teórica calculada ficou 
             {{ "abaixo de 10% da especificação" if item.risco_nitrosamina == "baixo" else "acima de 10% da especificação" }},
             demonstrando que o risco para formação de nitrosaminas é {{ "baixo" if item.risco_nitrosamina == "baixo" else "alto" }}.
-            {% set num_anexos = (num_anexos + 1) %}  <!-- Incrementa somente se houver nitrosamina -->
         {% endif %}
     </p>
 {% endfor %}

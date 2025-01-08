@@ -159,6 +159,10 @@ def html_AR(dados, produto, dados_anexos, elaborador):
     env.filters['romanize'] = int_to_roman
 
     num_range = list(range(1, len(dados) + 1))
+    # Adiciona a variável 'predicao' para cada dado
+    for i, dado in enumerate(dados):
+        if dado["nitrosamina"]:  # Verifica se há nitrosamina
+            dado["predicao"] = len(dados) + 1 + i  # Atribui o número do anexo para a predição
 
     template = env.get_template("ar_model.html")
     try:
