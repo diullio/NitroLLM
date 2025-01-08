@@ -162,7 +162,7 @@ def html_AR(dados, produto, dados_anexos, elaborador):
     # Adiciona a variável 'predicao' para cada dado
     for i, dado in enumerate(dados):
         if dado["nitrosamina"]:  # Verifica se há nitrosamina
-            dado["predicao"] = len(dados) + 1 + i  # Atribui o número do anexo para a predição
+            dado["predicao"] = len(dados) + 1 + 2  # PA + 1 e ajusta o índic
 
     template = env.get_template("ar_model.html")
     try:
